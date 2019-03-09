@@ -43,14 +43,21 @@
             this.rValueLabel = new System.Windows.Forms.Label();
             this.gValueLabel = new System.Windows.Forms.Label();
             this.bValueLabel = new System.Windows.Forms.Label();
+            this.brightnessTextBox = new System.Windows.Forms.TextBox();
+            this.brightnessLabel = new System.Windows.Forms.Label();
+            this.changeBrightnessButton = new System.Windows.Forms.Button();
+            this.resultPictureBox = new System.Windows.Forms.PictureBox();
+            this.originalPictureLabel = new System.Windows.Forms.Label();
+            this.resultPictureLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.resultPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // mainPictureBox
             // 
-            this.mainPictureBox.Location = new System.Drawing.Point(12, 58);
+            this.mainPictureBox.Location = new System.Drawing.Point(102, 44);
             this.mainPictureBox.Name = "mainPictureBox";
-            this.mainPictureBox.Size = new System.Drawing.Size(431, 344);
+            this.mainPictureBox.Size = new System.Drawing.Size(224, 156);
             this.mainPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.mainPictureBox.TabIndex = 0;
             this.mainPictureBox.TabStop = false;
@@ -173,11 +180,70 @@
             this.bValueLabel.TabIndex = 14;
             this.bValueLabel.Text = "B";
             // 
+            // brightnessTextBox
+            // 
+            this.brightnessTextBox.Location = new System.Drawing.Point(540, 218);
+            this.brightnessTextBox.Name = "brightnessTextBox";
+            this.brightnessTextBox.Size = new System.Drawing.Size(79, 20);
+            this.brightnessTextBox.TabIndex = 15;
+            // 
+            // brightnessLabel
+            // 
+            this.brightnessLabel.AutoSize = true;
+            this.brightnessLabel.Location = new System.Drawing.Point(461, 225);
+            this.brightnessLabel.Name = "brightnessLabel";
+            this.brightnessLabel.Size = new System.Drawing.Size(59, 13);
+            this.brightnessLabel.TabIndex = 16;
+            this.brightnessLabel.Text = "Kecerahan";
+            // 
+            // changeBrightnessButton
+            // 
+            this.changeBrightnessButton.Location = new System.Drawing.Point(646, 205);
+            this.changeBrightnessButton.Name = "changeBrightnessButton";
+            this.changeBrightnessButton.Size = new System.Drawing.Size(103, 45);
+            this.changeBrightnessButton.TabIndex = 17;
+            this.changeBrightnessButton.Text = "Ubah Kecerahan Gambar";
+            this.changeBrightnessButton.UseVisualStyleBackColor = true;
+            this.changeBrightnessButton.Click += new System.EventHandler(this.changeBrightnessButton_Click);
+            // 
+            // resultPictureBox
+            // 
+            this.resultPictureBox.Location = new System.Drawing.Point(102, 246);
+            this.resultPictureBox.Name = "resultPictureBox";
+            this.resultPictureBox.Size = new System.Drawing.Size(224, 156);
+            this.resultPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.resultPictureBox.TabIndex = 18;
+            this.resultPictureBox.TabStop = false;
+            // 
+            // originalPictureLabel
+            // 
+            this.originalPictureLabel.AutoSize = true;
+            this.originalPictureLabel.Location = new System.Drawing.Point(187, 20);
+            this.originalPictureLabel.Name = "originalPictureLabel";
+            this.originalPictureLabel.Size = new System.Drawing.Size(63, 13);
+            this.originalPictureLabel.TabIndex = 19;
+            this.originalPictureLabel.Text = "Gambar Asli";
+            // 
+            // resultPictureLabel
+            // 
+            this.resultPictureLabel.AutoSize = true;
+            this.resultPictureLabel.Location = new System.Drawing.Point(187, 218);
+            this.resultPictureLabel.Name = "resultPictureLabel";
+            this.resultPictureLabel.Size = new System.Drawing.Size(70, 13);
+            this.resultPictureLabel.TabIndex = 20;
+            this.resultPictureLabel.Text = "Gambar Hasil";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.resultPictureLabel);
+            this.Controls.Add(this.originalPictureLabel);
+            this.Controls.Add(this.resultPictureBox);
+            this.Controls.Add(this.changeBrightnessButton);
+            this.Controls.Add(this.brightnessLabel);
+            this.Controls.Add(this.brightnessTextBox);
             this.Controls.Add(this.bValueLabel);
             this.Controls.Add(this.gValueLabel);
             this.Controls.Add(this.rValueLabel);
@@ -196,6 +262,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.resultPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -218,6 +285,12 @@
         private System.Windows.Forms.Label rValueLabel;
         private System.Windows.Forms.Label gValueLabel;
         private System.Windows.Forms.Label bValueLabel;
+        private System.Windows.Forms.TextBox brightnessTextBox;
+        private System.Windows.Forms.Label brightnessLabel;
+        private System.Windows.Forms.Button changeBrightnessButton;
+        private System.Windows.Forms.PictureBox resultPictureBox;
+        private System.Windows.Forms.Label originalPictureLabel;
+        private System.Windows.Forms.Label resultPictureLabel;
     }
 }
 
