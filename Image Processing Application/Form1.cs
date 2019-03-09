@@ -17,6 +17,64 @@ namespace Image_Processing_Application
             InitializeComponent();
         }
 
+        // Bitmap variables for original and result pictures
+        Bitmap bitMapOriginal, bitMapResult;
+
+        /**
+         * Function to change the brightness of the picture based on the brightness value input
+         */
+        private void changeBrightnessButton_Click(object sender, EventArgs e)
+        {
+            // Get the brightness value from brightness text box
+            int brightnessValue = Convert.ToInt16(brightnessTextBox.Text);
+            int redValue, greenValue, blueValue;
+
+            // Get the original picture
+            bitMapOriginal = (Bitmap)mainPictureBox.Image;
+
+            // Get the width and height of the original picture
+            int row = bitMapOriginal.Width;
+            int column = bitMapOriginal.Height;
+
+            // Create a new Bitmap with the size of the original picture
+            bitMapResult = new Bitmap(row, column);
+
+            // Display the loading animation for the cursor
+            Cursor = Cursors.WaitCursor;
+
+            // For how tall the original picture is
+            for (int i = 0; i < row; i++)
+            {
+                // For how wide the original picture is
+                for (int j = 0; j < column; j++)
+                {
+                    // Add the brightness value to the original RGB value 
+                    redValue = bitMapOriginal.GetPixel(i, j).R + brightnessValue;
+                    greenValue = bitMapOriginal.GetPixel(i, j).G + brightnessValue;
+                    blueValue = bitMapOriginal.GetPixel(i, j).B + brightnessValue;
+
+                    // If the resulting RGB value exceeds maximum brightness value
+                    if (redValue > 255) redValue = 255;
+                    if (greenValue > 255) greenValue = 255;
+                    if (blueValue > 255) blueValue = 255;
+
+                    // If the resulting RGB value exceeds minimum brightness value
+                    if (redValue < 0) redValue = 0;
+                    if (greenValue < 0) greenValue = 0;
+                    if (blueValue < 0) blueValue = 0;
+
+                    // Set the pixel of Coordinate (i, j) of the resulting picture to the resulting RGB value 
+                    bitMapResult.SetPixel(i, j, Color.FromArgb(redValue, greenValue, blueValue));
+                }
+            }
+
+            // Display the resulting picture
+            resultPictureBox.Image = bitMapResult;
+
+            // Stop the cursor loading animation
+            Cursor = Cursors.Default;
+        }
+
         /**
          * Function to change the picture in the main picture box
          */
@@ -34,9 +92,6 @@ namespace Image_Processing_Application
                 mainPictureBox.Image = new Bitmap(open.FileName);
             }
         }
-
-        // Bitmap variables for original and result pictures
-        Bitmap bitMapOriginal, bitMapResult;
 
         /**
          * Function to get the RGB values based on the coordinates input
@@ -62,13 +117,12 @@ namespace Image_Processing_Application
         }
 
         /**
-         * Function to change the brightness of the picture based on the brightness value input
-         */
-        private void changeBrightnessButton_Click(object sender, EventArgs e)
+         * Function to greyscale a picture using averaging method
+         */ 
+        private void greyscaleAveragingButton_Click(object sender, EventArgs e)
         {
-            // Get the brightness value from brightness text box
-            int brightnessValue = Convert.ToInt16(brightnessTextBox.Text);
-            int redValue, greenValue, blueValue;
+            // Greyscaled RGB values
+            int redValue, greenValue, blueValue, greyscaledValue;
 
             // Get the original picture
             bitMapOriginal = (Bitmap)mainPictureBox.Image;
@@ -84,28 +138,20 @@ namespace Image_Processing_Application
             Cursor = Cursors.WaitCursor;
 
             // For how tall the original picture is
-            for(int i = 0; i < row; i++)
+            for (int i = 0; i < row; i++)
             {
                 // For how wide the original picture is
-                for(int j = 0; j < column; j++)
+                for (int j = 0; j < column; j++)
                 {
-                    // Add the brightness value to the original RGB value 
-                    redValue = bitMapOriginal.GetPixel(i, j).R + brightnessValue;
-                    greenValue = bitMapOriginal.GetPixel(i, j).G + brightnessValue;
-                    blueValue = bitMapOriginal.GetPixel(i, j).B + brightnessValue;
+                    // Convert the original RGB to inverted value
+                    redValue = bitMapOriginal.GetPixel(i, j).R;
+                    greenValue = bitMapOriginal.GetPixel(i, j).G;
+                    blueValue = bitMapOriginal.GetPixel(i, j).B;
 
-                    // If the resulting RGB value exceeds maximum brightness value
-                    if (redValue > 255) redValue = 255;
-                    if (greenValue > 255) greenValue = 255;
-                    if (blueValue > 255) blueValue = 255;
+                    greyscaledValue = (redValue + greenValue + blueValue) / 3;
 
-                    // If the resulting RGB value exceeds minimum brightness value
-                    if (redValue < 0) redValue = 0;
-                    if (greenValue < 0) greenValue = 0;
-                    if (blueValue < 0) blueValue = 0;
-
-                    // Set the pixel of Coordinate (i, j) of the resulting picture to the resulting RGB value 
-                    bitMapResult.SetPixel(i, j, Color.FromArgb(redValue, greenValue, blueValue));
+                    // Set the pixel of Coordinate (i, j) of the resulting picture to the inverted RGB value 
+                    bitMapResult.SetPixel(i, j, Color.FromArgb(greyscaledValue, greyscaledValue, greyscaledValue));
                 }
             }
 
