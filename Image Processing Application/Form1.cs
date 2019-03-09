@@ -17,70 +17,102 @@ namespace Image_Processing_Application
             InitializeComponent();
         }
 
+        /**
+         * Function to change the image in the main picture box
+         */
         private void changePictureButton_Click(object sender, EventArgs e)
         {
+            // Open a Windows dialog
             OpenFileDialog open = new OpenFileDialog();
+
+            // Fiter the format that can be displayed by the dialog
             open.Filter = "Image Files(*.jpg; *.bmp)|*.jpg; *.bmp";
+
+            // Change the picture in the main picture box
             if (open.ShowDialog() == DialogResult.OK)
             {
                 mainPictureBox.Image = new Bitmap(open.FileName);
             }
         }
 
+        // Bitmap variables for original and result pictures
         Bitmap bitMapOriginal, bitMapResult;
 
+        /**
+         * Function to get the RGB values based on the coordinates input
+         */
         private void getCoordinatesRGBValue_Click(object sender, EventArgs e)
         {
-
+            // Convert the string X and Y coordinates to Integers
             int xCoordinate = Convert.ToInt16(yCoordinateTextBox.Text);
             int yCoordinate = Convert.ToInt16(xCoordinateTextBox.Text);
 
+            // Get the original picture
             bitMapOriginal = (Bitmap)mainPictureBox.Image;
 
+            // Get the RGB value of the specific coordinate in the picture
             int redValue = bitMapOriginal.GetPixel(xCoordinate, yCoordinate).R;
             int greenValue = bitMapOriginal.GetPixel(xCoordinate, yCoordinate).G;
             int blueValue = bitMapOriginal.GetPixel(xCoordinate, yCoordinate).B;
 
+            // Display the RGB value in the RGB text boxes
             rValueTextBox.Text = redValue.ToString();
             gValueTextBox.Text = greenValue.ToString();
             bValueTextBox.Text = blueValue.ToString();
         }
 
+        /**
+         * Function to change the brightness of the picture based on the brightness value input
+         */
         private void changeBrightnessButton_Click(object sender, EventArgs e)
         {
+            // Get the brightness value from brightness text box
             int brightnessValue = Convert.ToInt16(brightnessTextBox.Text);
             int redValue, greenValue, blueValue;
 
+            // Get the original picture
             bitMapOriginal = (Bitmap)mainPictureBox.Image;
 
+            // Get the width and height of the original picture
             int row = bitMapOriginal.Width;
             int column = bitMapOriginal.Height;
 
+            // Create a new Bitmap with the size of the original picture
             bitMapResult = new Bitmap(row, column);
 
+            // Display the loading animation for the cursor
             Cursor = Cursors.WaitCursor;
 
+            // For how tall the original picture is
             for(int i = 0; i < row; i++)
             {
+                // For how wide the original picture is
                 for(int j = 0; j < column; j++)
                 {
+                    // Add the brightness value to the original RGB value 
                     redValue = bitMapOriginal.GetPixel(i, j).R + brightnessValue;
                     greenValue = bitMapOriginal.GetPixel(i, j).G + brightnessValue;
                     blueValue = bitMapOriginal.GetPixel(i, j).B + brightnessValue;
 
+                    // If the resulting RGB value exceeds maximum brightness value
                     if (redValue > 255) redValue = 255;
                     if (greenValue > 255) greenValue = 255;
                     if (blueValue > 255) blueValue = 255;
 
+                    // If the resulting RGB value exceeds minimum brightness value
                     if (redValue < 0) redValue = 0;
                     if (greenValue < 0) greenValue = 0;
                     if (blueValue < 0) blueValue = 0;
 
+                    // Set the pixel of Coordinate (i, j) of the resulting picture to the resulting RGB value 
                     bitMapResult.SetPixel(i, j, Color.FromArgb(redValue, greenValue, blueValue));
                 }
             }
 
+            // Display the resulting picture
             resultPictureBox.Image = bitMapResult;
+
+            // Stop the cursor loading animation
             Cursor = Cursors.Default;
         }
     }
