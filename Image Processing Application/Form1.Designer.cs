@@ -50,6 +50,7 @@
             this.originalPictureLabel = new System.Windows.Forms.Label();
             this.resultPictureLabel = new System.Windows.Forms.Label();
             this.invertPictureButton = new System.Windows.Forms.Button();
+            this.greyscaleAveragingButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.resultPictureBox)).BeginInit();
             this.SuspendLayout();
@@ -244,11 +245,22 @@
             this.invertPictureButton.UseVisualStyleBackColor = true;
             this.invertPictureButton.Click += new System.EventHandler(this.invertPictureButton_Click);
             // 
+            // greyscaleAveragingButton
+            // 
+            this.greyscaleAveragingButton.Location = new System.Drawing.Point(649, 281);
+            this.greyscaleAveragingButton.Name = "greyscaleAveragingButton";
+            this.greyscaleAveragingButton.Size = new System.Drawing.Size(100, 45);
+            this.greyscaleAveragingButton.TabIndex = 22;
+            this.greyscaleAveragingButton.Text = "Greyscale dengan Perataan";
+            this.greyscaleAveragingButton.UseVisualStyleBackColor = true;
+            this.greyscaleAveragingButton.Click += new System.EventHandler(this.greyscaleAveragingButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.greyscaleAveragingButton);
             this.Controls.Add(this.invertPictureButton);
             this.Controls.Add(this.resultPictureLabel);
             this.Controls.Add(this.originalPictureLabel);
@@ -304,6 +316,7 @@
         private System.Windows.Forms.Label originalPictureLabel;
         private System.Windows.Forms.Label resultPictureLabel;
         private System.Windows.Forms.Button invertPictureButton;
+        private System.Windows.Forms.Button greyscaleAveragingButton;
     }
 }
 
