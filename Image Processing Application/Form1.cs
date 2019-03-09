@@ -27,7 +27,7 @@ namespace Image_Processing_Application
             }
         }
 
-        Bitmap bitMap;
+        Bitmap bitMapOriginal, bitMapResult;
 
         private void getCoordinatesRGBValue_Click(object sender, EventArgs e)
         {
@@ -35,15 +35,53 @@ namespace Image_Processing_Application
             int xCoordinate = Convert.ToInt16(yCoordinateTextBox.Text);
             int yCoordinate = Convert.ToInt16(xCoordinateTextBox.Text);
 
-            bitMap = (Bitmap)mainPictureBox.Image;
+            bitMapOriginal = (Bitmap)mainPictureBox.Image;
 
-            int r = bitMap.GetPixel(xCoordinate, yCoordinate).R;
-            int g = bitMap.GetPixel(xCoordinate, yCoordinate).G;
-            int b = bitMap.GetPixel(xCoordinate, yCoordinate).B;
+            int redValue = bitMapOriginal.GetPixel(xCoordinate, yCoordinate).R;
+            int greenValue = bitMapOriginal.GetPixel(xCoordinate, yCoordinate).G;
+            int blueValue = bitMapOriginal.GetPixel(xCoordinate, yCoordinate).B;
 
-            rValueTextBox.Text = r.ToString();
-            gValueTextBox.Text = g.ToString();
-            bValueTextBox.Text = b.ToString();
+            rValueTextBox.Text = redValue.ToString();
+            gValueTextBox.Text = greenValue.ToString();
+            bValueTextBox.Text = blueValue.ToString();
+        }
+
+        private void changeBrightnessButton_Click(object sender, EventArgs e)
+        {
+            int brightnessValue = Convert.ToInt16(brightnessTextBox.Text);
+            int redValue, greenValue, blueValue;
+
+            bitMapOriginal = (Bitmap)mainPictureBox.Image;
+
+            int row = bitMapOriginal.Width;
+            int column = bitMapOriginal.Height;
+
+            bitMapResult = new Bitmap(row, column);
+
+            Cursor = Cursors.WaitCursor;
+
+            for(int i = 0; i < row; i++)
+            {
+                for(int j = 0; j < column; j++)
+                {
+                    redValue = bitMapOriginal.GetPixel(i, j).R + brightnessValue;
+                    greenValue = bitMapOriginal.GetPixel(i, j).G + brightnessValue;
+                    blueValue = bitMapOriginal.GetPixel(i, j).B + brightnessValue;
+
+                    if (redValue > 255) redValue = 255;
+                    if (greenValue > 255) greenValue = 255;
+                    if (blueValue > 255) blueValue = 255;
+
+                    if (redValue < 0) redValue = 0;
+                    if (greenValue < 0) greenValue = 0;
+                    if (blueValue < 0) blueValue = 0;
+
+                    bitMapResult.SetPixel(i, j, Color.FromArgb(redValue, greenValue, blueValue));
+                }
+            }
+
+            resultPictureBox.Image = bitMapResult;
+            Cursor = Cursors.Default;
         }
     }
 }
