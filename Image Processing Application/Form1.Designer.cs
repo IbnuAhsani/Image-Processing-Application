@@ -30,6 +30,19 @@
         {
             this.mainPictureBox = new System.Windows.Forms.PictureBox();
             this.changePictureButton = new System.Windows.Forms.Button();
+            this.xCoordinateTextBox = new System.Windows.Forms.TextBox();
+            this.yCoordinateTextBox = new System.Windows.Forms.TextBox();
+            this.xCoordinateLabel = new System.Windows.Forms.Label();
+            this.yCoordinateLabel = new System.Windows.Forms.Label();
+            this.coordinateLabel = new System.Windows.Forms.Label();
+            this.getCoordinatesRGBValue = new System.Windows.Forms.Button();
+            this.rValueTextBox = new System.Windows.Forms.TextBox();
+            this.gValueTextBox = new System.Windows.Forms.TextBox();
+            this.bValueTextBox = new System.Windows.Forms.TextBox();
+            this.intensityLabel = new System.Windows.Forms.Label();
+            this.rValueLabel = new System.Windows.Forms.Label();
+            this.gValueLabel = new System.Windows.Forms.Label();
+            this.bValueLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -44,7 +57,7 @@
             // 
             // changePictureButton
             // 
-            this.changePictureButton.Location = new System.Drawing.Point(487, 357);
+            this.changePictureButton.Location = new System.Drawing.Point(519, 357);
             this.changePictureButton.Name = "changePictureButton";
             this.changePictureButton.Size = new System.Drawing.Size(100, 45);
             this.changePictureButton.TabIndex = 1;
@@ -52,17 +65,139 @@
             this.changePictureButton.UseVisualStyleBackColor = true;
             this.changePictureButton.Click += new System.EventHandler(this.changePictureButton_Click);
             // 
+            // xCoordinateTextBox
+            // 
+            this.xCoordinateTextBox.Location = new System.Drawing.Point(540, 82);
+            this.xCoordinateTextBox.Name = "xCoordinateTextBox";
+            this.xCoordinateTextBox.Size = new System.Drawing.Size(79, 20);
+            this.xCoordinateTextBox.TabIndex = 2;
+            // 
+            // yCoordinateTextBox
+            // 
+            this.yCoordinateTextBox.Location = new System.Drawing.Point(670, 82);
+            this.yCoordinateTextBox.Name = "yCoordinateTextBox";
+            this.yCoordinateTextBox.Size = new System.Drawing.Size(79, 20);
+            this.yCoordinateTextBox.TabIndex = 3;
+            // 
+            // xCoordinateLabel
+            // 
+            this.xCoordinateLabel.AutoSize = true;
+            this.xCoordinateLabel.Location = new System.Drawing.Point(573, 58);
+            this.xCoordinateLabel.Name = "xCoordinateLabel";
+            this.xCoordinateLabel.Size = new System.Drawing.Size(14, 13);
+            this.xCoordinateLabel.TabIndex = 4;
+            this.xCoordinateLabel.Text = "X";
+            // 
+            // yCoordinateLabel
+            // 
+            this.yCoordinateLabel.AutoSize = true;
+            this.yCoordinateLabel.Location = new System.Drawing.Point(707, 58);
+            this.yCoordinateLabel.Name = "yCoordinateLabel";
+            this.yCoordinateLabel.Size = new System.Drawing.Size(14, 13);
+            this.yCoordinateLabel.TabIndex = 5;
+            this.yCoordinateLabel.Text = "Y";
+            // 
+            // coordinateLabel
+            // 
+            this.coordinateLabel.AutoSize = true;
+            this.coordinateLabel.Location = new System.Drawing.Point(461, 85);
+            this.coordinateLabel.Name = "coordinateLabel";
+            this.coordinateLabel.Size = new System.Drawing.Size(52, 13);
+            this.coordinateLabel.TabIndex = 6;
+            this.coordinateLabel.Text = "Koordinat";
+            // 
+            // getCoordinatesRGBValue
+            // 
+            this.getCoordinatesRGBValue.Location = new System.Drawing.Point(646, 357);
+            this.getCoordinatesRGBValue.Name = "getCoordinatesRGBValue";
+            this.getCoordinatesRGBValue.Size = new System.Drawing.Size(103, 45);
+            this.getCoordinatesRGBValue.TabIndex = 7;
+            this.getCoordinatesRGBValue.Text = "Nilai RGB pada Koordinat";
+            this.getCoordinatesRGBValue.UseVisualStyleBackColor = true;
+            this.getCoordinatesRGBValue.Click += new System.EventHandler(this.getCoordinatesRGBValue_Click);
+            // 
+            // rValueTextBox
+            // 
+            this.rValueTextBox.Location = new System.Drawing.Point(540, 149);
+            this.rValueTextBox.Name = "rValueTextBox";
+            this.rValueTextBox.Size = new System.Drawing.Size(42, 20);
+            this.rValueTextBox.TabIndex = 8;
+            // 
+            // gValueTextBox
+            // 
+            this.gValueTextBox.Location = new System.Drawing.Point(623, 149);
+            this.gValueTextBox.Name = "gValueTextBox";
+            this.gValueTextBox.Size = new System.Drawing.Size(42, 20);
+            this.gValueTextBox.TabIndex = 9;
+            // 
+            // bValueTextBox
+            // 
+            this.bValueTextBox.Location = new System.Drawing.Point(707, 149);
+            this.bValueTextBox.Name = "bValueTextBox";
+            this.bValueTextBox.Size = new System.Drawing.Size(42, 20);
+            this.bValueTextBox.TabIndex = 10;
+            // 
+            // intensityLabel
+            // 
+            this.intensityLabel.AutoSize = true;
+            this.intensityLabel.Location = new System.Drawing.Point(461, 156);
+            this.intensityLabel.Name = "intensityLabel";
+            this.intensityLabel.Size = new System.Drawing.Size(52, 13);
+            this.intensityLabel.TabIndex = 11;
+            this.intensityLabel.Text = "Intensitas";
+            // 
+            // rValueLabel
+            // 
+            this.rValueLabel.AutoSize = true;
+            this.rValueLabel.Location = new System.Drawing.Point(553, 123);
+            this.rValueLabel.Name = "rValueLabel";
+            this.rValueLabel.Size = new System.Drawing.Size(15, 13);
+            this.rValueLabel.TabIndex = 12;
+            this.rValueLabel.Text = "R";
+            // 
+            // gValueLabel
+            // 
+            this.gValueLabel.AutoSize = true;
+            this.gValueLabel.Location = new System.Drawing.Point(639, 123);
+            this.gValueLabel.Name = "gValueLabel";
+            this.gValueLabel.Size = new System.Drawing.Size(15, 13);
+            this.gValueLabel.TabIndex = 13;
+            this.gValueLabel.Text = "G";
+            // 
+            // bValueLabel
+            // 
+            this.bValueLabel.AutoSize = true;
+            this.bValueLabel.Location = new System.Drawing.Point(721, 123);
+            this.bValueLabel.Name = "bValueLabel";
+            this.bValueLabel.Size = new System.Drawing.Size(14, 13);
+            this.bValueLabel.TabIndex = 14;
+            this.bValueLabel.Text = "B";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.bValueLabel);
+            this.Controls.Add(this.gValueLabel);
+            this.Controls.Add(this.rValueLabel);
+            this.Controls.Add(this.intensityLabel);
+            this.Controls.Add(this.bValueTextBox);
+            this.Controls.Add(this.gValueTextBox);
+            this.Controls.Add(this.rValueTextBox);
+            this.Controls.Add(this.getCoordinatesRGBValue);
+            this.Controls.Add(this.coordinateLabel);
+            this.Controls.Add(this.yCoordinateLabel);
+            this.Controls.Add(this.xCoordinateLabel);
+            this.Controls.Add(this.yCoordinateTextBox);
+            this.Controls.Add(this.xCoordinateTextBox);
             this.Controls.Add(this.changePictureButton);
             this.Controls.Add(this.mainPictureBox);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -70,6 +205,19 @@
 
         private System.Windows.Forms.PictureBox mainPictureBox;
         private System.Windows.Forms.Button changePictureButton;
+        private System.Windows.Forms.TextBox xCoordinateTextBox;
+        private System.Windows.Forms.TextBox yCoordinateTextBox;
+        private System.Windows.Forms.Label xCoordinateLabel;
+        private System.Windows.Forms.Label yCoordinateLabel;
+        private System.Windows.Forms.Label coordinateLabel;
+        private System.Windows.Forms.Button getCoordinatesRGBValue;
+        private System.Windows.Forms.TextBox rValueTextBox;
+        private System.Windows.Forms.TextBox gValueTextBox;
+        private System.Windows.Forms.TextBox bValueTextBox;
+        private System.Windows.Forms.Label intensityLabel;
+        private System.Windows.Forms.Label rValueLabel;
+        private System.Windows.Forms.Label gValueLabel;
+        private System.Windows.Forms.Label bValueLabel;
     }
 }
 
