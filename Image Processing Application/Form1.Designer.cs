@@ -35,7 +35,7 @@
             this.xCoordinateLabel = new System.Windows.Forms.Label();
             this.yCoordinateLabel = new System.Windows.Forms.Label();
             this.coordinateLabel = new System.Windows.Forms.Label();
-            this.getCoordinatesRGBValue = new System.Windows.Forms.Button();
+            this.getCoordinatesRGBValueButton = new System.Windows.Forms.Button();
             this.rValueTextBox = new System.Windows.Forms.TextBox();
             this.gValueTextBox = new System.Windows.Forms.TextBox();
             this.bValueTextBox = new System.Windows.Forms.TextBox();
@@ -49,6 +49,7 @@
             this.resultPictureBox = new System.Windows.Forms.PictureBox();
             this.originalPictureLabel = new System.Windows.Forms.Label();
             this.resultPictureLabel = new System.Windows.Forms.Label();
+            this.invertPictureButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.resultPictureBox)).BeginInit();
             this.SuspendLayout();
@@ -64,7 +65,7 @@
             // 
             // changePictureButton
             // 
-            this.changePictureButton.Location = new System.Drawing.Point(519, 357);
+            this.changePictureButton.Location = new System.Drawing.Point(389, 357);
             this.changePictureButton.Name = "changePictureButton";
             this.changePictureButton.Size = new System.Drawing.Size(100, 45);
             this.changePictureButton.TabIndex = 1;
@@ -113,15 +114,15 @@
             this.coordinateLabel.TabIndex = 6;
             this.coordinateLabel.Text = "Koordinat";
             // 
-            // getCoordinatesRGBValue
+            // getCoordinatesRGBValueButton
             // 
-            this.getCoordinatesRGBValue.Location = new System.Drawing.Point(646, 357);
-            this.getCoordinatesRGBValue.Name = "getCoordinatesRGBValue";
-            this.getCoordinatesRGBValue.Size = new System.Drawing.Size(103, 45);
-            this.getCoordinatesRGBValue.TabIndex = 7;
-            this.getCoordinatesRGBValue.Text = "Nilai RGB pada Koordinat";
-            this.getCoordinatesRGBValue.UseVisualStyleBackColor = true;
-            this.getCoordinatesRGBValue.Click += new System.EventHandler(this.getCoordinatesRGBValue_Click);
+            this.getCoordinatesRGBValueButton.Location = new System.Drawing.Point(646, 357);
+            this.getCoordinatesRGBValueButton.Name = "getCoordinatesRGBValueButton";
+            this.getCoordinatesRGBValueButton.Size = new System.Drawing.Size(103, 45);
+            this.getCoordinatesRGBValueButton.TabIndex = 7;
+            this.getCoordinatesRGBValueButton.Text = "Nilai RGB pada Koordinat";
+            this.getCoordinatesRGBValueButton.UseVisualStyleBackColor = true;
+            this.getCoordinatesRGBValueButton.Click += new System.EventHandler(this.getCoordinatesRGBValue_Click);
             // 
             // rValueTextBox
             // 
@@ -233,11 +234,22 @@
             this.resultPictureLabel.TabIndex = 20;
             this.resultPictureLabel.Text = "Gambar Hasil";
             // 
+            // invertPictureButton
+            // 
+            this.invertPictureButton.Location = new System.Drawing.Point(519, 357);
+            this.invertPictureButton.Name = "invertPictureButton";
+            this.invertPictureButton.Size = new System.Drawing.Size(100, 45);
+            this.invertPictureButton.TabIndex = 21;
+            this.invertPictureButton.Text = "Invert Gambar";
+            this.invertPictureButton.UseVisualStyleBackColor = true;
+            this.invertPictureButton.Click += new System.EventHandler(this.invertPictureButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.invertPictureButton);
             this.Controls.Add(this.resultPictureLabel);
             this.Controls.Add(this.originalPictureLabel);
             this.Controls.Add(this.resultPictureBox);
@@ -251,7 +263,7 @@
             this.Controls.Add(this.bValueTextBox);
             this.Controls.Add(this.gValueTextBox);
             this.Controls.Add(this.rValueTextBox);
-            this.Controls.Add(this.getCoordinatesRGBValue);
+            this.Controls.Add(this.getCoordinatesRGBValueButton);
             this.Controls.Add(this.coordinateLabel);
             this.Controls.Add(this.yCoordinateLabel);
             this.Controls.Add(this.xCoordinateLabel);
@@ -277,7 +289,7 @@
         private System.Windows.Forms.Label xCoordinateLabel;
         private System.Windows.Forms.Label yCoordinateLabel;
         private System.Windows.Forms.Label coordinateLabel;
-        private System.Windows.Forms.Button getCoordinatesRGBValue;
+        private System.Windows.Forms.Button getCoordinatesRGBValueButton;
         private System.Windows.Forms.TextBox rValueTextBox;
         private System.Windows.Forms.TextBox gValueTextBox;
         private System.Windows.Forms.TextBox bValueTextBox;
@@ -291,6 +303,7 @@
         private System.Windows.Forms.PictureBox resultPictureBox;
         private System.Windows.Forms.Label originalPictureLabel;
         private System.Windows.Forms.Label resultPictureLabel;
+        private System.Windows.Forms.Button invertPictureButton;
     }
 }
 
