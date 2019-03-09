@@ -18,7 +18,7 @@ namespace Image_Processing_Application
         }
 
         /**
-         * Function to change the image in the main picture box
+         * Function to change the picture in the main picture box
          */
         private void changePictureButton_Click(object sender, EventArgs e)
         {
@@ -106,6 +106,50 @@ namespace Image_Processing_Application
 
                     // Set the pixel of Coordinate (i, j) of the resulting picture to the resulting RGB value 
                     bitMapResult.SetPixel(i, j, Color.FromArgb(redValue, greenValue, blueValue));
+                }
+            }
+
+            // Display the resulting picture
+            resultPictureBox.Image = bitMapResult;
+
+            // Stop the cursor loading animation
+            Cursor = Cursors.Default;
+        }
+
+        /**
+         * Function to invert the color of the picture
+         */
+        private void invertPictureButton_Click(object sender, EventArgs e)
+        {
+            // Inverted RGB values
+            int invertRedValue, invertGreenValue, invertBlueValue;
+
+            // Get the original picture
+            bitMapOriginal = (Bitmap)mainPictureBox.Image;
+
+            // Get the width and height of the original picture
+            int row = bitMapOriginal.Width;
+            int column = bitMapOriginal.Height;
+
+            // Create a new Bitmap with the size of the original picture
+            bitMapResult = new Bitmap(row, column);
+
+            // Display the loading animation for the cursor
+            Cursor = Cursors.WaitCursor;
+
+            // For how tall the original picture is
+            for (int i = 0; i < row; i++)
+            {
+                // For how wide the original picture is
+                for (int j = 0; j < column; j++)
+                {
+                    // Convert the original RGB to inverted value
+                    invertRedValue = 255 - bitMapOriginal.GetPixel(i, j).R;
+                    invertGreenValue = 255 - bitMapOriginal.GetPixel(i, j).G;
+                    invertBlueValue = 255 - bitMapOriginal.GetPixel(i, j).B;
+
+                    // Set the pixel of Coordinate (i, j) of the resulting picture to the inverted RGB value 
+                    bitMapResult.SetPixel(i, j, Color.FromArgb(invertRedValue, invertGreenValue, invertBlueValue));
                 }
             }
 
