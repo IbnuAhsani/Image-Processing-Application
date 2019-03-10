@@ -56,6 +56,7 @@
             this.thresholdValueTextBox = new System.Windows.Forms.TextBox();
             this.thresholdPictureButton = new System.Windows.Forms.Button();
             this.greyscaleLumaButton = new System.Windows.Forms.Button();
+            this.showPictureHistogramButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.resultPictureBox)).BeginInit();
             this.SuspendLayout();
@@ -71,7 +72,7 @@
             // 
             // changePictureButton
             // 
-            this.changePictureButton.Location = new System.Drawing.Point(95, 393);
+            this.changePictureButton.Location = new System.Drawing.Point(157, 393);
             this.changePictureButton.Name = "changePictureButton";
             this.changePictureButton.Size = new System.Drawing.Size(100, 45);
             this.changePictureButton.TabIndex = 1;
@@ -305,11 +306,22 @@
             this.greyscaleLumaButton.UseVisualStyleBackColor = true;
             this.greyscaleLumaButton.Click += new System.EventHandler(this.greyscaleLumaButton_Click);
             // 
+            // showPictureHistogramButton
+            // 
+            this.showPictureHistogramButton.Location = new System.Drawing.Point(33, 393);
+            this.showPictureHistogramButton.Name = "showPictureHistogramButton";
+            this.showPictureHistogramButton.Size = new System.Drawing.Size(100, 45);
+            this.showPictureHistogramButton.TabIndex = 28;
+            this.showPictureHistogramButton.Text = "Liat Histogram";
+            this.showPictureHistogramButton.UseVisualStyleBackColor = true;
+            this.showPictureHistogramButton.Click += new System.EventHandler(this.showPictureHistogramButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.showPictureHistogramButton);
             this.Controls.Add(this.greyscaleLumaButton);
             this.Controls.Add(this.thresholdPictureButton);
             this.Controls.Add(this.thresholdValueTextBox);
@@ -377,6 +389,7 @@
         private System.Windows.Forms.TextBox thresholdValueTextBox;
         private System.Windows.Forms.Button thresholdPictureButton;
         private System.Windows.Forms.Button greyscaleLumaButton;
+        private System.Windows.Forms.Button showPictureHistogramButton;
     }
 }
 
