@@ -55,6 +55,7 @@
             this.thresholdLabel = new System.Windows.Forms.Label();
             this.thresholdValueTextBox = new System.Windows.Forms.TextBox();
             this.thresholdPictureButton = new System.Windows.Forms.Button();
+            this.greyscaleLumaButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.resultPictureBox)).BeginInit();
             this.SuspendLayout();
@@ -241,7 +242,7 @@
             // 
             // invertPictureButton
             // 
-            this.invertPictureButton.Location = new System.Drawing.Point(317, 123);
+            this.invertPictureButton.Location = new System.Drawing.Point(317, 189);
             this.invertPictureButton.Name = "invertPictureButton";
             this.invertPictureButton.Size = new System.Drawing.Size(100, 45);
             this.invertPictureButton.TabIndex = 21;
@@ -294,11 +295,22 @@
             this.thresholdPictureButton.UseVisualStyleBackColor = true;
             this.thresholdPictureButton.Click += new System.EventHandler(this.thresholdPictureButton_Click);
             // 
+            // greyscaleLumaButton
+            // 
+            this.greyscaleLumaButton.Location = new System.Drawing.Point(317, 121);
+            this.greyscaleLumaButton.Name = "greyscaleLumaButton";
+            this.greyscaleLumaButton.Size = new System.Drawing.Size(100, 45);
+            this.greyscaleLumaButton.TabIndex = 27;
+            this.greyscaleLumaButton.Text = "Greyscale dengan Luma";
+            this.greyscaleLumaButton.UseVisualStyleBackColor = true;
+            this.greyscaleLumaButton.Click += new System.EventHandler(this.greyscaleLumaButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.greyscaleLumaButton);
             this.Controls.Add(this.thresholdPictureButton);
             this.Controls.Add(this.thresholdValueTextBox);
             this.Controls.Add(this.thresholdLabel);
@@ -364,6 +376,7 @@
         private System.Windows.Forms.Label thresholdLabel;
         private System.Windows.Forms.TextBox thresholdValueTextBox;
         private System.Windows.Forms.Button thresholdPictureButton;
+        private System.Windows.Forms.Button greyscaleLumaButton;
     }
 }
 
