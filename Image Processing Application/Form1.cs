@@ -17,8 +17,27 @@ namespace Image_Processing_Application
             InitializeComponent();
         }
 
+        // Variables for the Bitmap's row and column
+        int row, column;
+
         // Bitmap variables for original and result pictures
         Bitmap bitMapOriginal, bitMapResult;
+
+        /**
+         * Function to setup the original and result Bitmap
+         */ 
+        private void bitMapSetup()
+        {
+            // Get the original picture
+            bitMapOriginal = (Bitmap)mainPictureBox.Image;
+
+            // Get the width and height of the original picture
+            row = bitMapOriginal.Width;
+            column = bitMapOriginal.Height;
+
+            // Create a new Bitmap with the size of the original picture
+            bitMapResult = new Bitmap(row, column);
+        }
 
         /**
          * Function to change the brightness of the picture based on the brightness value input
@@ -29,15 +48,8 @@ namespace Image_Processing_Application
             int brightnessValue = Convert.ToInt16(brightnessTextBox.Text);
             int redValue, greenValue, blueValue;
 
-            // Get the original picture
-            bitMapOriginal = (Bitmap)mainPictureBox.Image;
-
-            // Get the width and height of the original picture
-            int row = bitMapOriginal.Width;
-            int column = bitMapOriginal.Height;
-
-            // Create a new Bitmap with the size of the original picture
-            bitMapResult = new Bitmap(row, column);
+            // Setup the original and result Bitmap
+            bitMapSetup();
 
             // Display the loading animation for the cursor
             Cursor = Cursors.WaitCursor;
@@ -117,22 +129,28 @@ namespace Image_Processing_Application
         }
 
         /**
+         * Function that returns the greyscale value based on averaging method
+         */ 
+        private int getGreyscaleAverageValue(Bitmap bitmap, int row, int column)
+        {
+            Color pixel = bitmap.GetPixel(row, column);
+            int redValue = pixel.R;
+            int greenValue = pixel.G;
+            int blueValue = pixel.B;
+
+            return (redValue + greenValue + blueValue) / 3;
+        }
+
+        /**
          * Function to greyscale a picture using averaging method
          */ 
         private void greyscaleAveragingButton_Click(object sender, EventArgs e)
         {
             // Greyscaled RGB values
-            int redValue, greenValue, blueValue, greyscaledValue;
+            int greyscaledValue;
 
-            // Get the original picture
-            bitMapOriginal = (Bitmap)mainPictureBox.Image;
-
-            // Get the width and height of the original picture
-            int row = bitMapOriginal.Width;
-            int column = bitMapOriginal.Height;
-
-            // Create a new Bitmap with the size of the original picture
-            bitMapResult = new Bitmap(row, column);
+            // Setup the original and result Bitmap
+            bitMapSetup();
 
             // Display the loading animation for the cursor
             Cursor = Cursors.WaitCursor;
@@ -144,11 +162,7 @@ namespace Image_Processing_Application
                 for (int j = 0; j < column; j++)
                 {
                     // Convert the original RGB to inverted value
-                    redValue = bitMapOriginal.GetPixel(i, j).R;
-                    greenValue = bitMapOriginal.GetPixel(i, j).G;
-                    blueValue = bitMapOriginal.GetPixel(i, j).B;
-
-                    greyscaledValue = (redValue + greenValue + blueValue) / 3;
+                    greyscaledValue = getGreyscaleAverageValue(bitMapOriginal, i, j);
 
                     // Set the pixel of Coordinate (i, j) of the resulting picture to the inverted RGB value 
                     bitMapResult.SetPixel(i, j, Color.FromArgb(greyscaledValue, greyscaledValue, greyscaledValue));
@@ -171,15 +185,8 @@ namespace Image_Processing_Application
             int redValue, greenValue, blueValue, roundedGreyscaledValue;
             double greyscaledValue;
 
-            // Get the original picture
-            bitMapOriginal = (Bitmap)mainPictureBox.Image;
-
-            // Get the width and height of the original picture
-            int row = bitMapOriginal.Width;
-            int column = bitMapOriginal.Height;
-
-            // Create a new Bitmap with the size of the original picture
-            bitMapResult = new Bitmap(row, column);
+            // Setup the original and result Bitmap
+            bitMapSetup();
 
             // Display the loading animation for the cursor
             Cursor = Cursors.WaitCursor;
@@ -221,15 +228,8 @@ namespace Image_Processing_Application
             // Inverted RGB values
             int invertRedValue, invertGreenValue, invertBlueValue;
 
-            // Get the original picture
-            bitMapOriginal = (Bitmap)mainPictureBox.Image;
-
-            // Get the width and height of the original picture
-            int row = bitMapOriginal.Width;
-            int column = bitMapOriginal.Height;
-
-            // Create a new Bitmap with the size of the original picture
-            bitMapResult = new Bitmap(row, column);
+            // Setup the original and result Bitmap
+            bitMapSetup();
 
             // Display the loading animation for the cursor
             Cursor = Cursors.WaitCursor;
@@ -282,15 +282,8 @@ namespace Image_Processing_Application
             int redValue, greenValue, blueValue;
             int thresholdedRedValue, thresholdedGreenValue, thresholdedBlueValue, thresholdedFinalValue;
 
-            // Get the original picture
-            bitMapOriginal = (Bitmap)mainPictureBox.Image;
-
-            // Get the width and height of the original picture
-            int row = bitMapOriginal.Width;
-            int column = bitMapOriginal.Height;
-
-            // Create a new Bitmap with the size of the original picture
-            bitMapResult = new Bitmap(row, column);
+            // Setup the original and result Bitmap
+            bitMapSetup();
 
             // Display the loading animation for the cursor
             Cursor = Cursors.WaitCursor;
@@ -331,6 +324,87 @@ namespace Image_Processing_Application
 
             // Stop the cursor loading animation
             Cursor = Cursors.Default;
+        }
+
+        /**
+         * Function to show picture histogram
+         */ 
+        private void showPictureHistogramButton_Click(object sender, EventArgs e)
+        {
+            // Array to hold the greyscale values and their amount
+            int[] histogramValue = new int[256];
+            int max = 0, histogramValueMaxIndex = 0;
+
+            // Setup the original and result Bitmap
+            bitMapSetup();
+
+            // Display the loading animation for the cursor
+            Cursor = Cursors.WaitCursor;
+
+            // Variable for the greyscale value
+            int greyscaleValue;
+            
+            // For how tall the original picture is
+            for (int i = 0; i < row; i++)
+            {
+                // For how wide the original picture is
+                for (int j = 0; j < column; j++)
+                {
+                    // Convert the original RGB to inverted value
+                    greyscaleValue = getGreyscaleAverageValue(bitMapOriginal, i, j);
+
+                    // Set the pixel of Coordinate (i, j) of the resulting picture to the inverted RGB value 
+                    bitMapResult.SetPixel(i, j, Color.FromArgb(greyscaleValue, greyscaleValue, greyscaleValue));
+
+                    // Increment the amount of that specific greyscaleValue in the array
+                    histogramValue[greyscaleValue]++;
+
+                    // Change the max value
+                    if (max < histogramValue[greyscaleValue])
+                    {
+                        max = histogramValue[greyscaleValue];
+                        histogramValueMaxIndex = greyscaleValue;
+                    }
+                }
+            }
+
+            // Display the resulting 
+            resultPictureBox.Image = bitMapResult;
+
+            // Stop the cursor loading animation
+            Cursor = Cursors.Default;
+
+            // Variables regarding histogram
+            int histogramHeight = 236;
+            float histogramValuePercentage;
+            Bitmap histogramData = new Bitmap(256, histogramHeight + 10);
+
+            // Draw the histogram
+            using (Graphics g = Graphics.FromImage(histogramData))
+            {
+                for (int v = 0; v < 256; v++)
+                {
+                    histogramValuePercentage = (histogramValue[v] * histogramHeight) / max;   // What percentage of the max is this value
+                    g.DrawLine(Pens.Black,
+                        new Point(v, histogramHeight),
+                        new Point(v, histogramHeight - (int)Math.Round(histogramValuePercentage))  // Use that percentage of the height
+                        );
+                }
+            }
+
+            // Variable to display the histogram in a form
+            var histogramForm = new Form
+            {
+                ShowInTaskbar = false,
+                TopMost = true,
+                Size = histogramData.Size,
+                Location = new Point(0, 0),
+                StartPosition = FormStartPosition.Manual,
+                BackgroundImage = histogramData
+            };
+
+            // Display the form
+            histogramForm.Show();
         }
     }
 }
