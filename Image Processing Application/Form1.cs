@@ -17,6 +17,36 @@ namespace Image_Processing_Application
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Mouse Functions
+        /// </summary>
+        
+        private void mainPictureBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            // Checks if the main picture box is empty or not
+            bool isMainPictureBoxNullOrEmpty = mainPictureBox == null || mainPictureBox.Image == null;
+            if (!isMainPictureBoxNullOrEmpty)
+            {
+                // Variables for the x, y coordinates, the bitmap for the main picture box, color value of the coordinate
+                int xCoordinate = e.X, yCoordinate = e.Y;
+                Bitmap bitMap = (Bitmap)mainPictureBox.Image;
+                Color pixel = bitMap.GetPixel(xCoordinate, yCoordinate);
+
+                // Set the x, y coordinate textbox to where the mouse is hovering
+                xCoordinateTextBox.Text = e.X.ToString();
+                yCoordinateTextBox.Text = e.Y.ToString();
+
+                // Set the RGB value textbox to where the mouse is hovering
+                rValueTextBox.Text = pixel.R.ToString();
+                gValueTextBox.Text = pixel.G.ToString();
+                bValueTextBox.Text = pixel.B.ToString();
+            }
+        }
+
+        /// <summary>
+        /// Button Functions
+        /// </summary>
+
         // Variables for the Bitmap's row and column
         int row, column;
 
