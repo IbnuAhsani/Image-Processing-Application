@@ -70,7 +70,7 @@
             // 
             this.changePictureButton.Location = new System.Drawing.Point(551, 352);
             this.changePictureButton.Name = "changePictureButton";
-            this.changePictureButton.Size = new System.Drawing.Size(100, 49);
+            this.changePictureButton.Size = new System.Drawing.Size(111, 49);
             this.changePictureButton.TabIndex = 1;
             this.changePictureButton.Text = "Change Picture";
             this.changePictureButton.UseVisualStyleBackColor = true;
@@ -106,11 +106,11 @@
             // 
             // euclideanDistanceButton
             // 
-            this.euclideanDistanceButton.Location = new System.Drawing.Point(657, 352);
+            this.euclideanDistanceButton.Location = new System.Drawing.Point(668, 352);
             this.euclideanDistanceButton.Name = "euclideanDistanceButton";
-            this.euclideanDistanceButton.Size = new System.Drawing.Size(113, 49);
+            this.euclideanDistanceButton.Size = new System.Drawing.Size(102, 49);
             this.euclideanDistanceButton.TabIndex = 26;
-            this.euclideanDistanceButton.Text = "Calculate Euclidean Distance";
+            this.euclideanDistanceButton.Text = "Calculate Distance";
             this.euclideanDistanceButton.UseVisualStyleBackColor = true;
             this.euclideanDistanceButton.Click += new System.EventHandler(this.euclideanDistanceButton_Click);
             // 

@@ -16,18 +16,12 @@ namespace Image_Processing_Application
         {
             InitializeComponent();
         }
-
-        /// <summary>
-        /// Button Functions
-        /// </summary>
-
+        
+        // Variable to count the number of mouse clicks
         int mouseClickCount = 0;
 
-        // Variables for the Bitmap's row and column
+        // Variables for the points coordinates
         int x1, y1, x2, y2;
-
-        // Bitmap variables for original and result pictures
-        Bitmap bitMapOriginal, bitMapResult;
         
         /**
          * Function to change the picture in the main picture box
@@ -35,10 +29,11 @@ namespace Image_Processing_Application
         private void changePictureButton_Click(object sender, EventArgs e)
         {
             // Open a Windows dialog
-            OpenFileDialog open = new OpenFileDialog();
-
-            // Fiter the format that can be displayed by the dialog
-            open.Filter = "Image Files(*.jpg; *.bmp)|*.jpg; *.bmp";
+            OpenFileDialog open = new OpenFileDialog
+            {
+                // Fiter the format that can be displayed by the dialog
+                Filter = "Image Files(*.jpg; *.bmp)|*.jpg; *.bmp"
+            };
 
             // Change the picture in the main picture box
             if (open.ShowDialog() == DialogResult.OK)
@@ -47,6 +42,10 @@ namespace Image_Processing_Application
             }
         }
 
+        /**
+         * Function to calculate chessboard, manhattan, and euclidean distance
+         * based on the two points where we clicked in the picture box
+         */ 
         private void euclideanDistanceButton_Click(object sender, EventArgs e)
         {
             bool pointOneCoordinateNullOrEmpty = pointOneXCoordinateTextBox.Text == "" ||
@@ -86,7 +85,10 @@ namespace Image_Processing_Application
 
         }
 
-
+        /**
+         * Function that saves and displays the values of the points
+         * where the user clicked in the picture box
+         */ 
         private void mainPictureBox_MouseClick(object sender, MouseEventArgs e)
         {
             if (mouseClickCount == 0)
