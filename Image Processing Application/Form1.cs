@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace Image_Processing_Application
         /// <summary>
         /// Mouse Functions
         /// </summary>
-        
+
         private void mainPictureBox_MouseMove(object sender, MouseEventArgs e)
         {
             // Checks if the main picture box is empty or not
@@ -287,9 +288,40 @@ namespace Image_Processing_Application
             Cursor = Cursors.Default;
         }
 
+        private Bitmap convertGreyViaPointer(Bitmap bitMap)
+        {
+            BitmapData bitMapData = bitMap.LockBits(new Rectangle(0, 0, bitMap.Width, bitMap.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
+
+            unsafe
+            {
+                byte* p = (byte*)(void*)bitMapData.Scan0.ToPointer();
+                int stopAddress = (int)p + bitMapData.Stride * bitMapData.Height;
+                while ((int)p != stopAddress)
+                {
+                    p[0] = (byte)(.299 * p[2] + .587 * p[1] + .114 * p[0]);
+                    p[1] = p[0];
+                    p[2] = p[0];
+                    p += 3;
+                }
+            }
+
+            bitMap.UnlockBits(bitMapData);
+
+            return bitMap;
+        }
+
+        private void greyscalePointerButton_Click(object sender, EventArgs e)
+        {
+            bitMapOriginal = (Bitmap)mainPictureBox.Image;
+
+            Bitmap greyscaledBitMap = convertGreyViaPointer(bitMapOriginal);
+
+            resultPictureBox.Image = greyscaledBitMap;
+        }
+
         /**
          * Returns 0 OR 255 based on the rgbValue and thresholdValue
-         */ 
+         */
         private int getThresholdValue(int rgbValue, int thresholdValue)
         {
             if(rgbValue > thresholdValue)
