@@ -91,26 +91,29 @@ namespace Image_Processing_Application
          */ 
         private void mainPictureBox_MouseClick(object sender, MouseEventArgs e)
         {
-            if (mouseClickCount == 0)
+            if (mainPictureBox.Image != null)
             {
-                pointOneXCoordinateTextBox.Text = e.X.ToString();
-                pointOneYCoordinateTextBox.Text = e.Y.ToString();
+                if (mouseClickCount == 0)
+                {
+                    pointOneXCoordinateTextBox.Text = e.X.ToString();
+                    pointOneYCoordinateTextBox.Text = e.Y.ToString();
 
-                x1 = e.X;
-                y1 = e.Y;
+                    x1 = e.X;
+                    y1 = e.Y;
 
-                mouseClickCount++;
-            } else
-            {
-                pointTwoXCoordinateTextBox.Text = e.X.ToString();
-                pointTwoYCoordinateTextBox.Text = e.Y.ToString();
+                    mouseClickCount++;
+                }
+                else
+                {
+                    pointTwoXCoordinateTextBox.Text = e.X.ToString();
+                    pointTwoYCoordinateTextBox.Text = e.Y.ToString();
 
-                x2 = e.X;
-                y2 = e.Y;
+                    x2 = e.X;
+                    y2 = e.Y;
 
-                mouseClickCount = 0;
-            } 
-
+                    mouseClickCount = 0;
+                }
+            }
         }
     }
 }
