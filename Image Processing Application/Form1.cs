@@ -294,28 +294,37 @@ namespace Image_Processing_Application
         }
 
         /**
-         * Returns an inverted image by pointer
-         */
-        private Bitmap invertColorViaPointer(Bitmap bitMap)
+         * Unlock and lock the addresses of each pixels in order to be used for manipulation
+         */ 
+         private Bitmap manipulatePictureByPointer(Bitmap bitMap, Action<BitmapData> calculationFunction)
         {
             BitmapData bitMapData = bitMap.LockBits(new Rectangle(0, 0, bitMap.Width, bitMap.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
 
             unsafe
             {
-                byte* p = (byte*)(void*)bitMapData.Scan0.ToPointer();
-                int stopAddress = (int)p + bitMapData.Stride * bitMapData.Height;
-                while ((int)p != stopAddress)
-                {
-                    p[0] = (byte)(255 - p[0]);
-                    p[1] = (byte)(255 - p[1]);
-                    p[2] = (byte)(255 - p[2]);
-                    p += 3;
-                }
+                calculationFunction(bitMapData);
             }
 
             bitMap.UnlockBits(bitMapData);
 
             return bitMap;
+
+        }
+
+        /**
+         * Calculations to invert picture's color by pointer
+         */
+        unsafe void invertColorViaPointer(BitmapData bitMapData)
+        {
+            byte* p = (byte*)(void*)bitMapData.Scan0.ToPointer();
+            int stopAddress = (int)p + bitMapData.Stride * bitMapData.Height;
+            while ((int)p != stopAddress)
+            {
+                p[0] = (byte)(255 - p[0]);
+                p[1] = (byte)(255 - p[1]);
+                p[2] = (byte)(255 - p[2]);
+                p += 3;
+            }
         }
 
         /**
@@ -325,36 +334,27 @@ namespace Image_Processing_Application
         {
             bitMapOriginal = (Bitmap)mainPictureBox.Image;
 
-            Bitmap invertedBitMap = convertGreyViaPointer(bitMapOriginal);
+            Bitmap invertedBitMap = manipulatePictureByPointer(bitMapOriginal, invertColorViaPointer);
 
             resultPictureBox.Image = invertedBitMap;
         }
 
         /**
-         * Returns a greyscaled image using BT.601 method by pointer
+         * Calculations to convert picture to greyscale using BT.601 method by pointer
          */
-        private Bitmap convertGreyViaPointer(Bitmap bitMap)
+        unsafe void convertBt601GreyscaleByPointer(BitmapData bitMapData)
         {
-            BitmapData bitMapData = bitMap.LockBits(new Rectangle(0, 0, bitMap.Width, bitMap.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
-
-            unsafe
+            byte* p = (byte*)(void*)bitMapData.Scan0.ToPointer();
+            int stopAddress = (int)p + bitMapData.Stride * bitMapData.Height;
+            while ((int)p != stopAddress)
             {
-                byte* p = (byte*)(void*)bitMapData.Scan0.ToPointer();
-                int stopAddress = (int)p + bitMapData.Stride * bitMapData.Height;
-                while ((int)p != stopAddress)
-                {
-                    p[0] = (byte)(.299 * p[2] + .587 * p[1] + .114 * p[0]);
-                    p[1] = p[0];
-                    p[2] = p[0];
-                    p += 3;
-                }
+                p[0] = (byte)(.299 * p[2] + .587 * p[1] + .114 * p[0]);
+                p[1] = p[0];
+                p[2] = p[0];
+                p += 3;
             }
-
-            bitMap.UnlockBits(bitMapData);
-
-            return bitMap;
         }
-
+        
         /**
          * Function to greyscale an image using BT.601 method by pointer
          */ 
@@ -362,7 +362,7 @@ namespace Image_Processing_Application
         {
             bitMapOriginal = (Bitmap)mainPictureBox.Image;
 
-            Bitmap greyscaledBitMap = convertGreyViaPointer(bitMapOriginal);
+            Bitmap greyscaledBitMap = manipulatePictureByPointer(bitMapOriginal, convertBt601GreyscaleByPointer);
 
             resultPictureBox.Image = greyscaledBitMap;
         }
