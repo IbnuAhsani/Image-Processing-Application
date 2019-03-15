@@ -34,12 +34,10 @@
             this.yCoordinateTextBox = new System.Windows.Forms.TextBox();
             this.xCoordinateLabel = new System.Windows.Forms.Label();
             this.yCoordinateLabel = new System.Windows.Forms.Label();
-            this.coordinateLabel = new System.Windows.Forms.Label();
             this.getCoordinatesRGBValueButton = new System.Windows.Forms.Button();
             this.rValueTextBox = new System.Windows.Forms.TextBox();
             this.gValueTextBox = new System.Windows.Forms.TextBox();
             this.bValueTextBox = new System.Windows.Forms.TextBox();
-            this.intensityLabel = new System.Windows.Forms.Label();
             this.rValueLabel = new System.Windows.Forms.Label();
             this.gValueLabel = new System.Windows.Forms.Label();
             this.bValueLabel = new System.Windows.Forms.Label();
@@ -64,6 +62,7 @@
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changePictureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.resultPictureBox)).BeginInit();
             this.pictureManipulationGroupBox.SuspendLayout();
@@ -72,6 +71,7 @@
             this.brightnessGroupBox.SuspendLayout();
             this.thresholdingGroupBox.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainPictureBox
@@ -82,18 +82,18 @@
             this.mainPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.mainPictureBox.TabIndex = 0;
             this.mainPictureBox.TabStop = false;
-            this.mainPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mainPictureBox_MouseMove);
+            this.mainPictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mainPictureBox_MouseClick);
             // 
             // xCoordinateTextBox
             // 
-            this.xCoordinateTextBox.Location = new System.Drawing.Point(627, 65);
+            this.xCoordinateTextBox.Location = new System.Drawing.Point(13, 50);
             this.xCoordinateTextBox.Name = "xCoordinateTextBox";
             this.xCoordinateTextBox.Size = new System.Drawing.Size(42, 20);
             this.xCoordinateTextBox.TabIndex = 2;
             // 
             // yCoordinateTextBox
             // 
-            this.yCoordinateTextBox.Location = new System.Drawing.Point(710, 65);
+            this.yCoordinateTextBox.Location = new System.Drawing.Point(67, 50);
             this.yCoordinateTextBox.Name = "yCoordinateTextBox";
             this.yCoordinateTextBox.Size = new System.Drawing.Size(42, 20);
             this.yCoordinateTextBox.TabIndex = 3;
@@ -101,7 +101,7 @@
             // xCoordinateLabel
             // 
             this.xCoordinateLabel.AutoSize = true;
-            this.xCoordinateLabel.Location = new System.Drawing.Point(640, 38);
+            this.xCoordinateLabel.Location = new System.Drawing.Point(28, 34);
             this.xCoordinateLabel.Name = "xCoordinateLabel";
             this.xCoordinateLabel.Size = new System.Drawing.Size(14, 13);
             this.xCoordinateLabel.TabIndex = 4;
@@ -110,65 +110,47 @@
             // yCoordinateLabel
             // 
             this.yCoordinateLabel.AutoSize = true;
-            this.yCoordinateLabel.Location = new System.Drawing.Point(726, 38);
+            this.yCoordinateLabel.Location = new System.Drawing.Point(82, 34);
             this.yCoordinateLabel.Name = "yCoordinateLabel";
             this.yCoordinateLabel.Size = new System.Drawing.Size(14, 13);
             this.yCoordinateLabel.TabIndex = 5;
             this.yCoordinateLabel.Text = "Y";
             // 
-            // coordinateLabel
-            // 
-            this.coordinateLabel.AutoSize = true;
-            this.coordinateLabel.Location = new System.Drawing.Point(548, 65);
-            this.coordinateLabel.Name = "coordinateLabel";
-            this.coordinateLabel.Size = new System.Drawing.Size(52, 13);
-            this.coordinateLabel.TabIndex = 6;
-            this.coordinateLabel.Text = "Koordinat";
-            // 
             // getCoordinatesRGBValueButton
             // 
-            this.getCoordinatesRGBValueButton.Location = new System.Drawing.Point(650, 320);
+            this.getCoordinatesRGBValueButton.Location = new System.Drawing.Point(39, 130);
             this.getCoordinatesRGBValueButton.Name = "getCoordinatesRGBValueButton";
             this.getCoordinatesRGBValueButton.Size = new System.Drawing.Size(103, 45);
             this.getCoordinatesRGBValueButton.TabIndex = 7;
-            this.getCoordinatesRGBValueButton.Text = "Nilai RGB pada Koordinat";
+            this.getCoordinatesRGBValueButton.Text = "Get a pixel\'s (X, Y) and RGB Values";
             this.getCoordinatesRGBValueButton.UseVisualStyleBackColor = true;
             this.getCoordinatesRGBValueButton.Click += new System.EventHandler(this.getCoordinatesRGBValue_Click);
             // 
             // rValueTextBox
             // 
-            this.rValueTextBox.Location = new System.Drawing.Point(588, 108);
+            this.rValueTextBox.Location = new System.Drawing.Point(13, 97);
             this.rValueTextBox.Name = "rValueTextBox";
             this.rValueTextBox.Size = new System.Drawing.Size(42, 20);
             this.rValueTextBox.TabIndex = 8;
             // 
             // gValueTextBox
             // 
-            this.gValueTextBox.Location = new System.Drawing.Point(671, 108);
+            this.gValueTextBox.Location = new System.Drawing.Point(67, 97);
             this.gValueTextBox.Name = "gValueTextBox";
             this.gValueTextBox.Size = new System.Drawing.Size(42, 20);
             this.gValueTextBox.TabIndex = 9;
             // 
             // bValueTextBox
             // 
-            this.bValueTextBox.Location = new System.Drawing.Point(755, 108);
+            this.bValueTextBox.Location = new System.Drawing.Point(121, 97);
             this.bValueTextBox.Name = "bValueTextBox";
             this.bValueTextBox.Size = new System.Drawing.Size(42, 20);
             this.bValueTextBox.TabIndex = 10;
             // 
-            // intensityLabel
-            // 
-            this.intensityLabel.AutoSize = true;
-            this.intensityLabel.Location = new System.Drawing.Point(509, 115);
-            this.intensityLabel.Name = "intensityLabel";
-            this.intensityLabel.Size = new System.Drawing.Size(52, 13);
-            this.intensityLabel.TabIndex = 11;
-            this.intensityLabel.Text = "Intensitas";
-            // 
             // rValueLabel
             // 
             this.rValueLabel.AutoSize = true;
-            this.rValueLabel.Location = new System.Drawing.Point(601, 82);
+            this.rValueLabel.Location = new System.Drawing.Point(28, 81);
             this.rValueLabel.Name = "rValueLabel";
             this.rValueLabel.Size = new System.Drawing.Size(15, 13);
             this.rValueLabel.TabIndex = 12;
@@ -177,7 +159,7 @@
             // gValueLabel
             // 
             this.gValueLabel.AutoSize = true;
-            this.gValueLabel.Location = new System.Drawing.Point(687, 82);
+            this.gValueLabel.Location = new System.Drawing.Point(82, 81);
             this.gValueLabel.Name = "gValueLabel";
             this.gValueLabel.Size = new System.Drawing.Size(15, 13);
             this.gValueLabel.TabIndex = 13;
@@ -186,7 +168,7 @@
             // bValueLabel
             // 
             this.bValueLabel.AutoSize = true;
-            this.bValueLabel.Location = new System.Drawing.Point(769, 82);
+            this.bValueLabel.Location = new System.Drawing.Point(136, 81);
             this.bValueLabel.Name = "bValueLabel";
             this.bValueLabel.Size = new System.Drawing.Size(14, 13);
             this.bValueLabel.TabIndex = 14;
@@ -387,34 +369,42 @@
             // changePictureToolStripMenuItem
             // 
             this.changePictureToolStripMenuItem.Name = "changePictureToolStripMenuItem";
-            this.changePictureToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.changePictureToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.changePictureToolStripMenuItem.Text = "Change Picture";
             this.changePictureToolStripMenuItem.Click += new System.EventHandler(this.changePictureToolStripMenuItem_Click_1);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rValueTextBox);
+            this.groupBox1.Controls.Add(this.gValueTextBox);
+            this.groupBox1.Controls.Add(this.bValueTextBox);
+            this.groupBox1.Controls.Add(this.rValueLabel);
+            this.groupBox1.Controls.Add(this.gValueLabel);
+            this.groupBox1.Controls.Add(this.bValueLabel);
+            this.groupBox1.Controls.Add(this.xCoordinateTextBox);
+            this.groupBox1.Controls.Add(this.xCoordinateLabel);
+            this.groupBox1.Controls.Add(this.getCoordinatesRGBValueButton);
+            this.groupBox1.Controls.Add(this.yCoordinateTextBox);
+            this.groupBox1.Controls.Add(this.yCoordinateLabel);
+            this.groupBox1.Location = new System.Drawing.Point(526, 42);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(180, 186);
+            this.groupBox1.TabIndex = 37;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Coordinates";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.mainMenuStrip);
             this.Controls.Add(this.thresholdingGroupBox);
             this.Controls.Add(this.brightnessGroupBox);
             this.Controls.Add(this.resultPictureGroupBox);
             this.Controls.Add(this.originalPictureGroupBox);
             this.Controls.Add(this.pictureManipulationGroupBox);
-            this.Controls.Add(this.bValueLabel);
-            this.Controls.Add(this.gValueLabel);
-            this.Controls.Add(this.rValueLabel);
-            this.Controls.Add(this.intensityLabel);
-            this.Controls.Add(this.bValueTextBox);
-            this.Controls.Add(this.gValueTextBox);
-            this.Controls.Add(this.rValueTextBox);
-            this.Controls.Add(this.getCoordinatesRGBValueButton);
-            this.Controls.Add(this.coordinateLabel);
-            this.Controls.Add(this.yCoordinateLabel);
-            this.Controls.Add(this.xCoordinateLabel);
-            this.Controls.Add(this.yCoordinateTextBox);
-            this.Controls.Add(this.xCoordinateTextBox);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).EndInit();
@@ -428,6 +418,8 @@
             this.thresholdingGroupBox.PerformLayout();
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -440,12 +432,10 @@
         private System.Windows.Forms.TextBox yCoordinateTextBox;
         private System.Windows.Forms.Label xCoordinateLabel;
         private System.Windows.Forms.Label yCoordinateLabel;
-        private System.Windows.Forms.Label coordinateLabel;
         private System.Windows.Forms.Button getCoordinatesRGBValueButton;
         private System.Windows.Forms.TextBox rValueTextBox;
         private System.Windows.Forms.TextBox gValueTextBox;
         private System.Windows.Forms.TextBox bValueTextBox;
-        private System.Windows.Forms.Label intensityLabel;
         private System.Windows.Forms.Label rValueLabel;
         private System.Windows.Forms.Label gValueLabel;
         private System.Windows.Forms.Label bValueLabel;
@@ -470,6 +460,7 @@
         private System.Windows.Forms.MenuStrip mainMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem changePictureToolStripMenuItem;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 

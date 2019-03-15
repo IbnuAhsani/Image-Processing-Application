@@ -22,27 +22,49 @@ namespace Image_Processing_Application
         /// Mouse Functions
         /// </summary>
 
-        private void mainPictureBox_MouseMove(object sender, MouseEventArgs e)
+        private bool isGetXYRGBValuesActivated = false;
+
+        private void mainPictureBox_MouseClick(object sender, MouseEventArgs e)
         {
-            // Checks if the main picture box is empty or not
-            bool isMainPictureBoxNullOrEmpty = mainPictureBox == null || mainPictureBox.Image == null;
-            if (!isMainPictureBoxNullOrEmpty)
+            if (isGetXYRGBValuesActivated)
             {
-                // Variables for the x, y coordinates, the bitmap for the main picture box, color value of the coordinate
-                int xCoordinate = e.X, yCoordinate = e.Y;
-                Bitmap bitMap = (Bitmap)mainPictureBox.Image;
-                Color pixel = bitMap.GetPixel(xCoordinate, yCoordinate);
+                // Checks if the main picture box is empty or not
+                bool isMainPictureBoxNullOrEmpty = mainPictureBox == null || mainPictureBox.Image == null;
+                if (!isMainPictureBoxNullOrEmpty)
+                {
+                    // Variables for the x, y coordinates, the bitmap for the main picture box, color value of the coordinate
+                    int xCoordinate = e.X, yCoordinate = e.Y;
+                    Bitmap bitMap = (Bitmap)mainPictureBox.Image;
+                    Color pixel = bitMap.GetPixel(xCoordinate, yCoordinate);
 
-                // Set the x, y coordinate textbox to where the mouse is hovering
-                xCoordinateTextBox.Text = e.X.ToString();
-                yCoordinateTextBox.Text = e.Y.ToString();
+                    // Set the x, y coordinate textbox to where the mouse is hovering
+                    xCoordinateTextBox.Text = e.X.ToString();
+                    yCoordinateTextBox.Text = e.Y.ToString();
 
-                // Set the RGB value textbox to where the mouse is hovering
-                rValueTextBox.Text = pixel.R.ToString();
-                gValueTextBox.Text = pixel.G.ToString();
-                bValueTextBox.Text = pixel.B.ToString();
+                    // Set the RGB value textbox to where the mouse is hovering
+                    rValueTextBox.Text = pixel.R.ToString();
+                    gValueTextBox.Text = pixel.G.ToString();
+                    bValueTextBox.Text = pixel.B.ToString();
+
+                    // Get the original picture
+                    bitMapOriginal = (Bitmap)mainPictureBox.Image;
+
+                    // Get the RGB value of the specific coordinate in the picture
+                    int redValue = bitMapOriginal.GetPixel(xCoordinate, yCoordinate).R;
+                    int greenValue = bitMapOriginal.GetPixel(xCoordinate, yCoordinate).G;
+                    int blueValue = bitMapOriginal.GetPixel(xCoordinate, yCoordinate).B;
+
+                    // Display the RGB value in the RGB text boxes
+                    rValueTextBox.Text = redValue.ToString();
+                    gValueTextBox.Text = greenValue.ToString();
+                    bValueTextBox.Text = blueValue.ToString();
+
+                    isGetXYRGBValuesActivated = false;
+                }
+
             }
         }
+
 
         /// <summary>
         /// Button Functions
@@ -139,22 +161,7 @@ namespace Image_Processing_Application
          */
         private void getCoordinatesRGBValue_Click(object sender, EventArgs e)
         {
-            // Convert the string X and Y coordinates to Integers
-            int xCoordinate = Convert.ToInt16(yCoordinateTextBox.Text);
-            int yCoordinate = Convert.ToInt16(xCoordinateTextBox.Text);
-
-            // Get the original picture
-            bitMapOriginal = (Bitmap)mainPictureBox.Image;
-
-            // Get the RGB value of the specific coordinate in the picture
-            int redValue = bitMapOriginal.GetPixel(xCoordinate, yCoordinate).R;
-            int greenValue = bitMapOriginal.GetPixel(xCoordinate, yCoordinate).G;
-            int blueValue = bitMapOriginal.GetPixel(xCoordinate, yCoordinate).B;
-
-            // Display the RGB value in the RGB text boxes
-            rValueTextBox.Text = redValue.ToString();
-            gValueTextBox.Text = greenValue.ToString();
-            bValueTextBox.Text = blueValue.ToString();
+            isGetXYRGBValuesActivated = true;
         }
 
         /**
