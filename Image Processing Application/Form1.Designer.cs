@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.mainPictureBox = new System.Windows.Forms.PictureBox();
-            this.changePictureButton = new System.Windows.Forms.Button();
             this.xCoordinateTextBox = new System.Windows.Forms.TextBox();
             this.yCoordinateTextBox = new System.Windows.Forms.TextBox();
             this.xCoordinateLabel = new System.Windows.Forms.Label();
@@ -55,11 +55,15 @@
             this.greyscaleLumaButton = new System.Windows.Forms.Button();
             this.showPictureHistogramButton = new System.Windows.Forms.Button();
             this.pictureManipulationGroupBox = new System.Windows.Forms.GroupBox();
+            this.greyscalePointerButton = new System.Windows.Forms.Button();
             this.originalPictureGroupBox = new System.Windows.Forms.GroupBox();
             this.resultPictureGroupBox = new System.Windows.Forms.GroupBox();
             this.brightnessGroupBox = new System.Windows.Forms.GroupBox();
             this.thresholdingGroupBox = new System.Windows.Forms.GroupBox();
-            this.greyscalePointerButton = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changePictureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.resultPictureBox)).BeginInit();
             this.pictureManipulationGroupBox.SuspendLayout();
@@ -67,6 +71,7 @@
             this.resultPictureGroupBox.SuspendLayout();
             this.brightnessGroupBox.SuspendLayout();
             this.thresholdingGroupBox.SuspendLayout();
+            this.mainMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainPictureBox
@@ -79,26 +84,16 @@
             this.mainPictureBox.TabStop = false;
             this.mainPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mainPictureBox_MouseMove);
             // 
-            // changePictureButton
-            // 
-            this.changePictureButton.Location = new System.Drawing.Point(653, 374);
-            this.changePictureButton.Name = "changePictureButton";
-            this.changePictureButton.Size = new System.Drawing.Size(100, 45);
-            this.changePictureButton.TabIndex = 1;
-            this.changePictureButton.Text = "Ganti Gambar";
-            this.changePictureButton.UseVisualStyleBackColor = true;
-            this.changePictureButton.Click += new System.EventHandler(this.changePictureButton_Click);
-            // 
             // xCoordinateTextBox
             // 
-            this.xCoordinateTextBox.Location = new System.Drawing.Point(627, 45);
+            this.xCoordinateTextBox.Location = new System.Drawing.Point(627, 65);
             this.xCoordinateTextBox.Name = "xCoordinateTextBox";
             this.xCoordinateTextBox.Size = new System.Drawing.Size(42, 20);
             this.xCoordinateTextBox.TabIndex = 2;
             // 
             // yCoordinateTextBox
             // 
-            this.yCoordinateTextBox.Location = new System.Drawing.Point(710, 45);
+            this.yCoordinateTextBox.Location = new System.Drawing.Point(710, 65);
             this.yCoordinateTextBox.Name = "yCoordinateTextBox";
             this.yCoordinateTextBox.Size = new System.Drawing.Size(42, 20);
             this.yCoordinateTextBox.TabIndex = 3;
@@ -106,7 +101,7 @@
             // xCoordinateLabel
             // 
             this.xCoordinateLabel.AutoSize = true;
-            this.xCoordinateLabel.Location = new System.Drawing.Point(640, 18);
+            this.xCoordinateLabel.Location = new System.Drawing.Point(640, 38);
             this.xCoordinateLabel.Name = "xCoordinateLabel";
             this.xCoordinateLabel.Size = new System.Drawing.Size(14, 13);
             this.xCoordinateLabel.TabIndex = 4;
@@ -115,7 +110,7 @@
             // yCoordinateLabel
             // 
             this.yCoordinateLabel.AutoSize = true;
-            this.yCoordinateLabel.Location = new System.Drawing.Point(726, 18);
+            this.yCoordinateLabel.Location = new System.Drawing.Point(726, 38);
             this.yCoordinateLabel.Name = "yCoordinateLabel";
             this.yCoordinateLabel.Size = new System.Drawing.Size(14, 13);
             this.yCoordinateLabel.TabIndex = 5;
@@ -124,7 +119,7 @@
             // coordinateLabel
             // 
             this.coordinateLabel.AutoSize = true;
-            this.coordinateLabel.Location = new System.Drawing.Point(548, 45);
+            this.coordinateLabel.Location = new System.Drawing.Point(548, 65);
             this.coordinateLabel.Name = "coordinateLabel";
             this.coordinateLabel.Size = new System.Drawing.Size(52, 13);
             this.coordinateLabel.TabIndex = 6;
@@ -132,7 +127,7 @@
             // 
             // getCoordinatesRGBValueButton
             // 
-            this.getCoordinatesRGBValueButton.Location = new System.Drawing.Point(650, 300);
+            this.getCoordinatesRGBValueButton.Location = new System.Drawing.Point(650, 320);
             this.getCoordinatesRGBValueButton.Name = "getCoordinatesRGBValueButton";
             this.getCoordinatesRGBValueButton.Size = new System.Drawing.Size(103, 45);
             this.getCoordinatesRGBValueButton.TabIndex = 7;
@@ -142,21 +137,21 @@
             // 
             // rValueTextBox
             // 
-            this.rValueTextBox.Location = new System.Drawing.Point(588, 88);
+            this.rValueTextBox.Location = new System.Drawing.Point(588, 108);
             this.rValueTextBox.Name = "rValueTextBox";
             this.rValueTextBox.Size = new System.Drawing.Size(42, 20);
             this.rValueTextBox.TabIndex = 8;
             // 
             // gValueTextBox
             // 
-            this.gValueTextBox.Location = new System.Drawing.Point(671, 88);
+            this.gValueTextBox.Location = new System.Drawing.Point(671, 108);
             this.gValueTextBox.Name = "gValueTextBox";
             this.gValueTextBox.Size = new System.Drawing.Size(42, 20);
             this.gValueTextBox.TabIndex = 9;
             // 
             // bValueTextBox
             // 
-            this.bValueTextBox.Location = new System.Drawing.Point(755, 88);
+            this.bValueTextBox.Location = new System.Drawing.Point(755, 108);
             this.bValueTextBox.Name = "bValueTextBox";
             this.bValueTextBox.Size = new System.Drawing.Size(42, 20);
             this.bValueTextBox.TabIndex = 10;
@@ -164,7 +159,7 @@
             // intensityLabel
             // 
             this.intensityLabel.AutoSize = true;
-            this.intensityLabel.Location = new System.Drawing.Point(509, 95);
+            this.intensityLabel.Location = new System.Drawing.Point(509, 115);
             this.intensityLabel.Name = "intensityLabel";
             this.intensityLabel.Size = new System.Drawing.Size(52, 13);
             this.intensityLabel.TabIndex = 11;
@@ -173,7 +168,7 @@
             // rValueLabel
             // 
             this.rValueLabel.AutoSize = true;
-            this.rValueLabel.Location = new System.Drawing.Point(601, 62);
+            this.rValueLabel.Location = new System.Drawing.Point(601, 82);
             this.rValueLabel.Name = "rValueLabel";
             this.rValueLabel.Size = new System.Drawing.Size(15, 13);
             this.rValueLabel.TabIndex = 12;
@@ -182,7 +177,7 @@
             // gValueLabel
             // 
             this.gValueLabel.AutoSize = true;
-            this.gValueLabel.Location = new System.Drawing.Point(687, 62);
+            this.gValueLabel.Location = new System.Drawing.Point(687, 82);
             this.gValueLabel.Name = "gValueLabel";
             this.gValueLabel.Size = new System.Drawing.Size(15, 13);
             this.gValueLabel.TabIndex = 13;
@@ -191,7 +186,7 @@
             // bValueLabel
             // 
             this.bValueLabel.AutoSize = true;
-            this.bValueLabel.Location = new System.Drawing.Point(769, 62);
+            this.bValueLabel.Location = new System.Drawing.Point(769, 82);
             this.bValueLabel.Name = "bValueLabel";
             this.bValueLabel.Size = new System.Drawing.Size(14, 13);
             this.bValueLabel.TabIndex = 14;
@@ -305,56 +300,12 @@
             this.pictureManipulationGroupBox.Controls.Add(this.invertPictureButton);
             this.pictureManipulationGroupBox.Controls.Add(this.greyscaleAveragingButton);
             this.pictureManipulationGroupBox.Controls.Add(this.showPictureHistogramButton);
-            this.pictureManipulationGroupBox.Location = new System.Drawing.Point(319, 227);
+            this.pictureManipulationGroupBox.Location = new System.Drawing.Point(319, 247);
             this.pictureManipulationGroupBox.Name = "pictureManipulationGroupBox";
             this.pictureManipulationGroupBox.Size = new System.Drawing.Size(186, 194);
             this.pictureManipulationGroupBox.TabIndex = 29;
             this.pictureManipulationGroupBox.TabStop = false;
             this.pictureManipulationGroupBox.Text = "Picture Manipulation";
-            // 
-            // originalPictureGroupBox
-            // 
-            this.originalPictureGroupBox.Controls.Add(this.mainPictureBox);
-            this.originalPictureGroupBox.Location = new System.Drawing.Point(33, 22);
-            this.originalPictureGroupBox.Name = "originalPictureGroupBox";
-            this.originalPictureGroupBox.Size = new System.Drawing.Size(262, 186);
-            this.originalPictureGroupBox.TabIndex = 30;
-            this.originalPictureGroupBox.TabStop = false;
-            this.originalPictureGroupBox.Text = "Original Picture";
-            // 
-            // resultPictureGroupBox
-            // 
-            this.resultPictureGroupBox.Controls.Add(this.resultPictureBox);
-            this.resultPictureGroupBox.Location = new System.Drawing.Point(33, 227);
-            this.resultPictureGroupBox.Name = "resultPictureGroupBox";
-            this.resultPictureGroupBox.Size = new System.Drawing.Size(262, 194);
-            this.resultPictureGroupBox.TabIndex = 31;
-            this.resultPictureGroupBox.TabStop = false;
-            this.resultPictureGroupBox.Text = "Result Picture";
-            // 
-            // brightnessGroupBox
-            // 
-            this.brightnessGroupBox.Controls.Add(this.brightnessLabel);
-            this.brightnessGroupBox.Controls.Add(this.brightnessTextBox);
-            this.brightnessGroupBox.Controls.Add(this.changeBrightnessButton);
-            this.brightnessGroupBox.Location = new System.Drawing.Point(319, 22);
-            this.brightnessGroupBox.Name = "brightnessGroupBox";
-            this.brightnessGroupBox.Size = new System.Drawing.Size(186, 86);
-            this.brightnessGroupBox.TabIndex = 32;
-            this.brightnessGroupBox.TabStop = false;
-            this.brightnessGroupBox.Text = "Brightness";
-            // 
-            // thresholdingGroupBox
-            // 
-            this.thresholdingGroupBox.Controls.Add(this.thresholdLabel);
-            this.thresholdingGroupBox.Controls.Add(this.thresholdValueTextBox);
-            this.thresholdingGroupBox.Controls.Add(this.thresholdPictureButton);
-            this.thresholdingGroupBox.Location = new System.Drawing.Point(319, 122);
-            this.thresholdingGroupBox.Name = "thresholdingGroupBox";
-            this.thresholdingGroupBox.Size = new System.Drawing.Size(186, 86);
-            this.thresholdingGroupBox.TabIndex = 33;
-            this.thresholdingGroupBox.TabStop = false;
-            this.thresholdingGroupBox.Text = "Thresholding";
             // 
             // greyscalePointerButton
             // 
@@ -366,11 +317,86 @@
             this.greyscalePointerButton.UseVisualStyleBackColor = true;
             this.greyscalePointerButton.Click += new System.EventHandler(this.greyscalePointerButton_Click);
             // 
+            // originalPictureGroupBox
+            // 
+            this.originalPictureGroupBox.Controls.Add(this.mainPictureBox);
+            this.originalPictureGroupBox.Location = new System.Drawing.Point(33, 42);
+            this.originalPictureGroupBox.Name = "originalPictureGroupBox";
+            this.originalPictureGroupBox.Size = new System.Drawing.Size(262, 186);
+            this.originalPictureGroupBox.TabIndex = 30;
+            this.originalPictureGroupBox.TabStop = false;
+            this.originalPictureGroupBox.Text = "Original Picture";
+            // 
+            // resultPictureGroupBox
+            // 
+            this.resultPictureGroupBox.Controls.Add(this.resultPictureBox);
+            this.resultPictureGroupBox.Location = new System.Drawing.Point(33, 247);
+            this.resultPictureGroupBox.Name = "resultPictureGroupBox";
+            this.resultPictureGroupBox.Size = new System.Drawing.Size(262, 194);
+            this.resultPictureGroupBox.TabIndex = 31;
+            this.resultPictureGroupBox.TabStop = false;
+            this.resultPictureGroupBox.Text = "Result Picture";
+            // 
+            // brightnessGroupBox
+            // 
+            this.brightnessGroupBox.Controls.Add(this.brightnessLabel);
+            this.brightnessGroupBox.Controls.Add(this.brightnessTextBox);
+            this.brightnessGroupBox.Controls.Add(this.changeBrightnessButton);
+            this.brightnessGroupBox.Location = new System.Drawing.Point(319, 42);
+            this.brightnessGroupBox.Name = "brightnessGroupBox";
+            this.brightnessGroupBox.Size = new System.Drawing.Size(186, 86);
+            this.brightnessGroupBox.TabIndex = 32;
+            this.brightnessGroupBox.TabStop = false;
+            this.brightnessGroupBox.Text = "Brightness";
+            // 
+            // thresholdingGroupBox
+            // 
+            this.thresholdingGroupBox.Controls.Add(this.thresholdLabel);
+            this.thresholdingGroupBox.Controls.Add(this.thresholdValueTextBox);
+            this.thresholdingGroupBox.Controls.Add(this.thresholdPictureButton);
+            this.thresholdingGroupBox.Location = new System.Drawing.Point(319, 142);
+            this.thresholdingGroupBox.Name = "thresholdingGroupBox";
+            this.thresholdingGroupBox.Size = new System.Drawing.Size(186, 86);
+            this.thresholdingGroupBox.TabIndex = 33;
+            this.thresholdingGroupBox.TabStop = false;
+            this.thresholdingGroupBox.Text = "Thresholding";
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // mainMenuStrip
+            // 
+            this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem});
+            this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.mainMenuStrip.Name = "mainMenuStrip";
+            this.mainMenuStrip.Size = new System.Drawing.Size(800, 24);
+            this.mainMenuStrip.TabIndex = 36;
+            this.mainMenuStrip.Text = "mainMenuStrip";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.changePictureToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // changePictureToolStripMenuItem
+            // 
+            this.changePictureToolStripMenuItem.Name = "changePictureToolStripMenuItem";
+            this.changePictureToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.changePictureToolStripMenuItem.Text = "Change Picture";
+            this.changePictureToolStripMenuItem.Click += new System.EventHandler(this.changePictureToolStripMenuItem_Click_1);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.mainMenuStrip);
             this.Controls.Add(this.thresholdingGroupBox);
             this.Controls.Add(this.brightnessGroupBox);
             this.Controls.Add(this.resultPictureGroupBox);
@@ -389,7 +415,6 @@
             this.Controls.Add(this.xCoordinateLabel);
             this.Controls.Add(this.yCoordinateTextBox);
             this.Controls.Add(this.xCoordinateTextBox);
-            this.Controls.Add(this.changePictureButton);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).EndInit();
@@ -401,6 +426,8 @@
             this.brightnessGroupBox.PerformLayout();
             this.thresholdingGroupBox.ResumeLayout(false);
             this.thresholdingGroupBox.PerformLayout();
+            this.mainMenuStrip.ResumeLayout(false);
+            this.mainMenuStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -409,7 +436,6 @@
         #endregion
 
         private System.Windows.Forms.PictureBox mainPictureBox;
-        private System.Windows.Forms.Button changePictureButton;
         private System.Windows.Forms.TextBox xCoordinateTextBox;
         private System.Windows.Forms.TextBox yCoordinateTextBox;
         private System.Windows.Forms.Label xCoordinateLabel;
@@ -440,6 +466,10 @@
         private System.Windows.Forms.GroupBox brightnessGroupBox;
         private System.Windows.Forms.GroupBox thresholdingGroupBox;
         private System.Windows.Forms.Button greyscalePointerButton;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.MenuStrip mainMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem changePictureToolStripMenuItem;
     }
 }
 

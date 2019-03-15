@@ -118,10 +118,7 @@ namespace Image_Processing_Application
             Cursor = Cursors.Default;
         }
 
-        /**
-         * Function to change the picture in the main picture box
-         */
-        private void changePictureButton_Click(object sender, EventArgs e)
+        private void changePictureToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             // Open a Windows dialog
             OpenFileDialog open = new OpenFileDialog();
@@ -134,6 +131,7 @@ namespace Image_Processing_Application
             {
                 mainPictureBox.Image = new Bitmap(open.FileName);
             }
+
         }
 
         /**
