@@ -63,6 +63,8 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changePictureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.invertPictureByPointerButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.resultPictureBox)).BeginInit();
             this.pictureManipulationGroupBox.SuspendLayout();
@@ -72,6 +74,7 @@
             this.thresholdingGroupBox.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainPictureBox
@@ -211,7 +214,7 @@
             // 
             // invertPictureButton
             // 
-            this.invertPictureButton.Location = new System.Drawing.Point(10, 134);
+            this.invertPictureButton.Location = new System.Drawing.Point(96, 23);
             this.invertPictureButton.Name = "invertPictureButton";
             this.invertPictureButton.Size = new System.Drawing.Size(76, 41);
             this.invertPictureButton.TabIndex = 21;
@@ -247,7 +250,7 @@
             // 
             // thresholdPictureButton
             // 
-            this.thresholdPictureButton.Location = new System.Drawing.Point(91, 27);
+            this.thresholdPictureButton.Location = new System.Drawing.Point(93, 27);
             this.thresholdPictureButton.Name = "thresholdPictureButton";
             this.thresholdPictureButton.Size = new System.Drawing.Size(79, 40);
             this.thresholdPictureButton.TabIndex = 26;
@@ -267,7 +270,7 @@
             // 
             // showPictureHistogramButton
             // 
-            this.showPictureHistogramButton.Location = new System.Drawing.Point(93, 77);
+            this.showPictureHistogramButton.Location = new System.Drawing.Point(96, 77);
             this.showPictureHistogramButton.Name = "showPictureHistogramButton";
             this.showPictureHistogramButton.Size = new System.Drawing.Size(76, 41);
             this.showPictureHistogramButton.TabIndex = 28;
@@ -277,7 +280,6 @@
             // 
             // pictureManipulationGroupBox
             // 
-            this.pictureManipulationGroupBox.Controls.Add(this.greyscalePointerButton);
             this.pictureManipulationGroupBox.Controls.Add(this.greyscaleLumaButton);
             this.pictureManipulationGroupBox.Controls.Add(this.invertPictureButton);
             this.pictureManipulationGroupBox.Controls.Add(this.greyscaleAveragingButton);
@@ -287,15 +289,15 @@
             this.pictureManipulationGroupBox.Size = new System.Drawing.Size(186, 194);
             this.pictureManipulationGroupBox.TabIndex = 29;
             this.pictureManipulationGroupBox.TabStop = false;
-            this.pictureManipulationGroupBox.Text = "Picture Manipulation";
+            this.pictureManipulationGroupBox.Text = "Picture Manipulation by Calculation";
             // 
             // greyscalePointerButton
             // 
-            this.greyscalePointerButton.Location = new System.Drawing.Point(93, 23);
+            this.greyscalePointerButton.Location = new System.Drawing.Point(11, 23);
             this.greyscalePointerButton.Name = "greyscalePointerButton";
             this.greyscalePointerButton.Size = new System.Drawing.Size(76, 41);
             this.greyscalePointerButton.TabIndex = 34;
-            this.greyscalePointerButton.Text = "Pointer Greyscale";
+            this.greyscalePointerButton.Text = "BT.601 Greyscale";
             this.greyscalePointerButton.UseVisualStyleBackColor = true;
             this.greyscalePointerButton.Click += new System.EventHandler(this.greyscalePointerButton_Click);
             // 
@@ -354,7 +356,7 @@
             this.fileToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(800, 24);
+            this.mainMenuStrip.Size = new System.Drawing.Size(1034, 24);
             this.mainMenuStrip.TabIndex = 36;
             this.mainMenuStrip.Text = "mainMenuStrip";
             // 
@@ -388,16 +390,38 @@
             this.groupBox1.Controls.Add(this.yCoordinateLabel);
             this.groupBox1.Location = new System.Drawing.Point(526, 42);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(180, 186);
+            this.groupBox1.Size = new System.Drawing.Size(186, 186);
             this.groupBox1.TabIndex = 37;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Coordinates";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.invertPictureByPointerButton);
+            this.groupBox2.Controls.Add(this.greyscalePointerButton);
+            this.groupBox2.Location = new System.Drawing.Point(526, 247);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(186, 194);
+            this.groupBox2.TabIndex = 38;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Picture Manipulation by Pointer";
+            // 
+            // invertPictureByPointerButton
+            // 
+            this.invertPictureByPointerButton.Location = new System.Drawing.Point(97, 23);
+            this.invertPictureByPointerButton.Name = "invertPictureByPointerButton";
+            this.invertPictureByPointerButton.Size = new System.Drawing.Size(76, 41);
+            this.invertPictureByPointerButton.TabIndex = 29;
+            this.invertPictureByPointerButton.Text = "Invert Color";
+            this.invertPictureByPointerButton.UseVisualStyleBackColor = true;
+            this.invertPictureByPointerButton.Click += new System.EventHandler(this.invertPictureByPointerButton_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1034, 450);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.mainMenuStrip);
             this.Controls.Add(this.thresholdingGroupBox);
@@ -420,6 +444,7 @@
             this.mainMenuStrip.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -461,6 +486,8 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem changePictureToolStripMenuItem;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button invertPictureByPointerButton;
     }
 }
 
