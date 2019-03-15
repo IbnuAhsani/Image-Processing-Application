@@ -257,7 +257,7 @@ namespace Image_Processing_Application
         }
 
         /**
-         * Function to invert the color of the picture
+         * Function to invert the color of the picture by calculation
          */
         private void invertPictureButton_Click(object sender, EventArgs e)
         {
@@ -293,6 +293,46 @@ namespace Image_Processing_Application
             Cursor = Cursors.Default;
         }
 
+        /**
+         * Returns an inverted image by pointer
+         */
+        private Bitmap invertColorViaPointer(Bitmap bitMap)
+        {
+            BitmapData bitMapData = bitMap.LockBits(new Rectangle(0, 0, bitMap.Width, bitMap.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
+
+            unsafe
+            {
+                byte* p = (byte*)(void*)bitMapData.Scan0.ToPointer();
+                int stopAddress = (int)p + bitMapData.Stride * bitMapData.Height;
+                while ((int)p != stopAddress)
+                {
+                    p[0] = (byte)(255 - p[0]);
+                    p[1] = (byte)(255 - p[1]);
+                    p[2] = (byte)(255 - p[2]);
+                    p += 3;
+                }
+            }
+
+            bitMap.UnlockBits(bitMapData);
+
+            return bitMap;
+        }
+
+        /**
+         * Function to invert the color of the picture by pointer
+         */
+        private void invertPictureByPointerButton_Click(object sender, EventArgs e)
+        {
+            bitMapOriginal = (Bitmap)mainPictureBox.Image;
+
+            Bitmap invertedBitMap = convertGreyViaPointer(bitMapOriginal);
+
+            resultPictureBox.Image = invertedBitMap;
+        }
+
+        /**
+         * Returns a greyscaled image using BT.601 method by pointer
+         */
         private Bitmap convertGreyViaPointer(Bitmap bitMap)
         {
             BitmapData bitMapData = bitMap.LockBits(new Rectangle(0, 0, bitMap.Width, bitMap.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
@@ -315,6 +355,9 @@ namespace Image_Processing_Application
             return bitMap;
         }
 
+        /**
+         * Function to greyscale an image using BT.601 method by pointer
+         */ 
         private void greyscalePointerButton_Click(object sender, EventArgs e)
         {
             bitMapOriginal = (Bitmap)mainPictureBox.Image;
