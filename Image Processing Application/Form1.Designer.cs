@@ -63,8 +63,16 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changePictureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.pictureManipulationByPointerGroupBox = new System.Windows.Forms.GroupBox();
             this.invertPictureByPointerButton = new System.Windows.Forms.Button();
+            this.thresholdingByPointerGroupBox = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.thresholdValueByPointerTextBox = new System.Windows.Forms.TextBox();
+            this.thresholdingPictureByPointerButton = new System.Windows.Forms.Button();
+            this.brightnessByPointerGroupBox = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.brightnessByPointerTextBox = new System.Windows.Forms.TextBox();
+            this.changeBrightnessByPointerButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.mainPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.resultPictureBox)).BeginInit();
             this.pictureManipulationGroupBox.SuspendLayout();
@@ -74,7 +82,9 @@
             this.thresholdingGroupBox.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.pictureManipulationByPointerGroupBox.SuspendLayout();
+            this.thresholdingByPointerGroupBox.SuspendLayout();
+            this.brightnessByPointerGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainPictureBox
@@ -331,7 +341,7 @@
             this.brightnessGroupBox.Size = new System.Drawing.Size(186, 86);
             this.brightnessGroupBox.TabIndex = 32;
             this.brightnessGroupBox.TabStop = false;
-            this.brightnessGroupBox.Text = "Brightness";
+            this.brightnessGroupBox.Text = "Brightness by Calculation";
             // 
             // thresholdingGroupBox
             // 
@@ -343,7 +353,7 @@
             this.thresholdingGroupBox.Size = new System.Drawing.Size(186, 86);
             this.thresholdingGroupBox.TabIndex = 33;
             this.thresholdingGroupBox.TabStop = false;
-            this.thresholdingGroupBox.Text = "Thresholding";
+            this.thresholdingGroupBox.Text = "Thresholding by Calculation";
             // 
             // contextMenuStrip1
             // 
@@ -388,23 +398,23 @@
             this.groupBox1.Controls.Add(this.getCoordinatesRGBValueButton);
             this.groupBox1.Controls.Add(this.yCoordinateTextBox);
             this.groupBox1.Controls.Add(this.yCoordinateLabel);
-            this.groupBox1.Location = new System.Drawing.Point(526, 42);
+            this.groupBox1.Location = new System.Drawing.Point(735, 247);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(186, 186);
+            this.groupBox1.Size = new System.Drawing.Size(186, 194);
             this.groupBox1.TabIndex = 37;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Coordinates";
             // 
-            // groupBox2
+            // pictureManipulationByPointerGroupBox
             // 
-            this.groupBox2.Controls.Add(this.invertPictureByPointerButton);
-            this.groupBox2.Controls.Add(this.greyscalePointerButton);
-            this.groupBox2.Location = new System.Drawing.Point(526, 247);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(186, 194);
-            this.groupBox2.TabIndex = 38;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Picture Manipulation by Pointer";
+            this.pictureManipulationByPointerGroupBox.Controls.Add(this.invertPictureByPointerButton);
+            this.pictureManipulationByPointerGroupBox.Controls.Add(this.greyscalePointerButton);
+            this.pictureManipulationByPointerGroupBox.Location = new System.Drawing.Point(526, 247);
+            this.pictureManipulationByPointerGroupBox.Name = "pictureManipulationByPointerGroupBox";
+            this.pictureManipulationByPointerGroupBox.Size = new System.Drawing.Size(186, 194);
+            this.pictureManipulationByPointerGroupBox.TabIndex = 38;
+            this.pictureManipulationByPointerGroupBox.TabStop = false;
+            this.pictureManipulationByPointerGroupBox.Text = "Picture Manipulation by Pointer";
             // 
             // invertPictureByPointerButton
             // 
@@ -416,12 +426,89 @@
             this.invertPictureByPointerButton.UseVisualStyleBackColor = true;
             this.invertPictureByPointerButton.Click += new System.EventHandler(this.invertPictureByPointerButton_Click);
             // 
+            // thresholdingByPointerGroupBox
+            // 
+            this.thresholdingByPointerGroupBox.Controls.Add(this.label1);
+            this.thresholdingByPointerGroupBox.Controls.Add(this.thresholdValueByPointerTextBox);
+            this.thresholdingByPointerGroupBox.Controls.Add(this.thresholdingPictureByPointerButton);
+            this.thresholdingByPointerGroupBox.Location = new System.Drawing.Point(526, 142);
+            this.thresholdingByPointerGroupBox.Name = "thresholdingByPointerGroupBox";
+            this.thresholdingByPointerGroupBox.Size = new System.Drawing.Size(186, 86);
+            this.thresholdingByPointerGroupBox.TabIndex = 35;
+            this.thresholdingByPointerGroupBox.TabStop = false;
+            this.thresholdingByPointerGroupBox.Text = "Thresholding";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(28, 27);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(34, 13);
+            this.label1.TabIndex = 24;
+            this.label1.Text = "Value";
+            // 
+            // thresholdValueByPointerTextBox
+            // 
+            this.thresholdValueByPointerTextBox.Location = new System.Drawing.Point(22, 47);
+            this.thresholdValueByPointerTextBox.Name = "thresholdValueByPointerTextBox";
+            this.thresholdValueByPointerTextBox.Size = new System.Drawing.Size(53, 20);
+            this.thresholdValueByPointerTextBox.TabIndex = 25;
+            // 
+            // thresholdingPictureByPointerButton
+            // 
+            this.thresholdingPictureByPointerButton.Location = new System.Drawing.Point(93, 27);
+            this.thresholdingPictureByPointerButton.Name = "thresholdingPictureByPointerButton";
+            this.thresholdingPictureByPointerButton.Size = new System.Drawing.Size(79, 40);
+            this.thresholdingPictureByPointerButton.TabIndex = 26;
+            this.thresholdingPictureByPointerButton.Text = "Process";
+            this.thresholdingPictureByPointerButton.UseVisualStyleBackColor = true;
+            // 
+            // brightnessByPointerGroupBox
+            // 
+            this.brightnessByPointerGroupBox.Controls.Add(this.label2);
+            this.brightnessByPointerGroupBox.Controls.Add(this.brightnessByPointerTextBox);
+            this.brightnessByPointerGroupBox.Controls.Add(this.changeBrightnessByPointerButton);
+            this.brightnessByPointerGroupBox.Location = new System.Drawing.Point(526, 42);
+            this.brightnessByPointerGroupBox.Name = "brightnessByPointerGroupBox";
+            this.brightnessByPointerGroupBox.Size = new System.Drawing.Size(186, 86);
+            this.brightnessByPointerGroupBox.TabIndex = 34;
+            this.brightnessByPointerGroupBox.TabStop = false;
+            this.brightnessByPointerGroupBox.Text = "Brightness by Pointer";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(28, 26);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(34, 13);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "Value";
+            // 
+            // brightnessByPointerTextBox
+            // 
+            this.brightnessByPointerTextBox.Location = new System.Drawing.Point(20, 50);
+            this.brightnessByPointerTextBox.Name = "brightnessByPointerTextBox";
+            this.brightnessByPointerTextBox.Size = new System.Drawing.Size(53, 20);
+            this.brightnessByPointerTextBox.TabIndex = 15;
+            // 
+            // changeBrightnessByPointerButton
+            // 
+            this.changeBrightnessByPointerButton.Location = new System.Drawing.Point(93, 31);
+            this.changeBrightnessByPointerButton.Name = "changeBrightnessByPointerButton";
+            this.changeBrightnessByPointerButton.Size = new System.Drawing.Size(79, 39);
+            this.changeBrightnessByPointerButton.TabIndex = 17;
+            this.changeBrightnessByPointerButton.Text = "Process";
+            this.changeBrightnessByPointerButton.UseVisualStyleBackColor = true;
+            this.changeBrightnessByPointerButton.Click += new System.EventHandler(this.changeBrightnessByPointerButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1034, 450);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.thresholdingByPointerGroupBox);
+            this.Controls.Add(this.brightnessByPointerGroupBox);
+            this.Controls.Add(this.pictureManipulationByPointerGroupBox);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.mainMenuStrip);
             this.Controls.Add(this.thresholdingGroupBox);
@@ -444,7 +531,11 @@
             this.mainMenuStrip.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
+            this.pictureManipulationByPointerGroupBox.ResumeLayout(false);
+            this.thresholdingByPointerGroupBox.ResumeLayout(false);
+            this.thresholdingByPointerGroupBox.PerformLayout();
+            this.brightnessByPointerGroupBox.ResumeLayout(false);
+            this.brightnessByPointerGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -486,8 +577,16 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem changePictureToolStripMenuItem;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox pictureManipulationByPointerGroupBox;
         private System.Windows.Forms.Button invertPictureByPointerButton;
+        private System.Windows.Forms.GroupBox thresholdingByPointerGroupBox;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox thresholdValueByPointerTextBox;
+        private System.Windows.Forms.Button thresholdingPictureByPointerButton;
+        private System.Windows.Forms.GroupBox brightnessByPointerGroupBox;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox brightnessByPointerTextBox;
+        private System.Windows.Forms.Button changeBrightnessByPointerButton;
     }
 }
 
