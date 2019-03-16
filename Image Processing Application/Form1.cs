@@ -65,9 +65,8 @@ namespace Image_Processing_Application
             }
         }
 
-
         /// <summary>
-        /// Button Functions
+        /// Button Functions by Calculation
         /// </summary>
 
         // Variables for the Bitmap's row and column
@@ -294,80 +293,6 @@ namespace Image_Processing_Application
         }
 
         /**
-         * Unlock and lock the addresses of each pixels in order to be used for manipulation
-         */ 
-         private Bitmap manipulatePictureByPointer(Bitmap bitMap, Action<BitmapData> calculationFunction)
-        {
-            BitmapData bitMapData = bitMap.LockBits(new Rectangle(0, 0, bitMap.Width, bitMap.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
-
-            unsafe
-            {
-                calculationFunction(bitMapData);
-            }
-
-            bitMap.UnlockBits(bitMapData);
-
-            return bitMap;
-
-        }
-
-        /**
-         * Calculations to invert picture's color by pointer
-         */
-        unsafe void invertColorViaPointer(BitmapData bitMapData)
-        {
-            byte* p = (byte*)(void*)bitMapData.Scan0.ToPointer();
-            int stopAddress = (int)p + bitMapData.Stride * bitMapData.Height;
-            while ((int)p != stopAddress)
-            {
-                p[0] = (byte)(255 - p[0]);
-                p[1] = (byte)(255 - p[1]);
-                p[2] = (byte)(255 - p[2]);
-                p += 3;
-            }
-        }
-
-        /**
-         * Function to invert the color of the picture by pointer
-         */
-        private void invertPictureByPointerButton_Click(object sender, EventArgs e)
-        {
-            bitMapOriginal = (Bitmap)mainPictureBox.Image;
-
-            Bitmap invertedBitMap = manipulatePictureByPointer(bitMapOriginal, invertColorViaPointer);
-
-            resultPictureBox.Image = invertedBitMap;
-        }
-
-        /**
-         * Calculations to convert picture to greyscale using BT.601 method by pointer
-         */
-        unsafe void convertBt601GreyscaleByPointer(BitmapData bitMapData)
-        {
-            byte* p = (byte*)(void*)bitMapData.Scan0.ToPointer();
-            int stopAddress = (int)p + bitMapData.Stride * bitMapData.Height;
-            while ((int)p != stopAddress)
-            {
-                p[0] = (byte)(.299 * p[2] + .587 * p[1] + .114 * p[0]);
-                p[1] = p[0];
-                p[2] = p[0];
-                p += 3;
-            }
-        }
-        
-        /**
-         * Function to greyscale an image using BT.601 method by pointer
-         */ 
-        private void greyscalePointerButton_Click(object sender, EventArgs e)
-        {
-            bitMapOriginal = (Bitmap)mainPictureBox.Image;
-
-            Bitmap greyscaledBitMap = manipulatePictureByPointer(bitMapOriginal, convertBt601GreyscaleByPointer);
-
-            resultPictureBox.Image = greyscaledBitMap;
-        }
-
-        /**
          * Returns 0 OR 255 based on the rgbValue and thresholdValue
          */
         private int getThresholdValue(int rgbValue, int thresholdValue)
@@ -379,6 +304,7 @@ namespace Image_Processing_Application
 
             return 0;
         }
+
 
         /**
          * Function to greyscale an image based on a specific threshold
@@ -515,6 +441,145 @@ namespace Image_Processing_Application
 
             // Display the form
             histogramForm.Show();
+        }
+
+        /// <summary>
+        /// Button Functions by Pointer
+        /// </summary>
+
+        /**
+         * Unlock and lock the addresses of each pixels in order to be used for manipulation
+         */
+        private Bitmap manipulatePictureByPointer(Bitmap bitMap, Action<BitmapData> calculationFunction)
+        {
+            BitmapData bitMapData = bitMap.LockBits(new Rectangle(0, 0, bitMap.Width, bitMap.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
+
+            unsafe
+            {
+                calculationFunction(bitMapData);
+            }
+
+            bitMap.UnlockBits(bitMapData);
+
+            return bitMap;
+        }
+
+        /**
+         * Unlock and lock the addresses of each pixels in order to be used for manipulation with an extra param for text box variable
+         */
+        private Bitmap manipulatePictureByPointerWithValue(Bitmap bitMap, Action<BitmapData, int> calculationFunction, int textBoxValue)
+        {
+            BitmapData bitMapData = bitMap.LockBits(new Rectangle(0, 0, bitMap.Width, bitMap.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
+
+            unsafe
+            {
+                calculationFunction(bitMapData, textBoxValue);
+            }
+
+            bitMap.UnlockBits(bitMapData);
+
+            return bitMap;
+        }
+
+        /**
+         * Calculations to brighten the pixel of the image
+         */
+        unsafe void changeBrightnessByPointer(BitmapData bitMapData, int brightnessValue)
+        {
+            byte* p = (byte*)(void*)bitMapData.Scan0.ToPointer();
+            int stopAddress = (int)p + bitMapData.Stride * bitMapData.Height;
+            while ((int)p != stopAddress)
+            {
+                p[0] = (byte)(p[0] + brightnessValue);
+                p[1] = (byte)(p[1] + brightnessValue);
+                p[2] = (byte)(p[2] + brightnessValue);
+
+                // If the resulting RGB value exceeds maximum brightness value
+                if (p[0] > 255) p[0] = 255;
+                if (p[1] > 255) p[1] = 255;
+                if (p[2] > 255) p[2] = 255;
+
+                // If the resulting RGB value exceeds minimum brightness value
+                if (p[0] < 0) p[0] = 0;
+                if (p[1] < 0) p[1] = 0;
+                if (p[2] < 0) p[2] = 0;
+
+                p += 3;
+            }
+        }
+
+        /**
+         * Function to brighten the color of the picture by pointer
+         */
+        private void changeBrightnessByPointerButton_Click(object sender, EventArgs e)
+        {
+            // Get the brightness value from brightness text box
+            int brightnessValue = Convert.ToInt16(brightnessByPointerTextBox.Text);
+            bitMapOriginal = (Bitmap)mainPictureBox.Image;
+
+            Bitmap bitMapOriginalCopy = new Bitmap(bitMapOriginal);
+
+            Bitmap invertedBitMap = manipulatePictureByPointerWithValue(bitMapOriginalCopy, changeBrightnessByPointer, brightnessValue);
+
+            resultPictureBox.Image = invertedBitMap;
+        }
+
+        /**
+         * Calculations to invert picture's color by pointer
+         */
+        unsafe void invertColorByPointer(BitmapData bitMapData)
+        {
+            byte* p = (byte*)(void*)bitMapData.Scan0.ToPointer();
+            int stopAddress = (int)p + bitMapData.Stride * bitMapData.Height;
+            while ((int)p != stopAddress)
+            {
+                p[0] = (byte)(255 - p[0]);
+                p[1] = (byte)(255 - p[1]);
+                p[2] = (byte)(255 - p[2]);
+                p += 3;
+            }
+        }
+
+        /**
+         * Function to invert the color of the picture by pointer
+         */
+        private void invertPictureByPointerButton_Click(object sender, EventArgs e)
+        {
+            bitMapOriginal = (Bitmap)mainPictureBox.Image;
+
+            Bitmap bitMapOriginalCopy = new Bitmap(bitMapOriginal);
+
+            Bitmap invertedBitMap = manipulatePictureByPointer(bitMapOriginalCopy, invertColorByPointer);
+
+            resultPictureBox.Image = invertedBitMap;
+        }
+
+        /**
+         * Calculations to convert picture to greyscale using BT.601 method by pointer
+         */
+        unsafe void convertBt601GreyscaleByPointer(BitmapData bitMapData)
+        {
+            byte* p = (byte*)(void*)bitMapData.Scan0.ToPointer();
+            int stopAddress = (int)p + bitMapData.Stride * bitMapData.Height;
+            while ((int)p != stopAddress)
+            {
+                p[0] = (byte)(.299 * p[2] + .587 * p[1] + .114 * p[0]);
+                p[1] = p[0];
+                p[2] = p[0];
+                p += 3;
+            }
+        }
+
+        /**
+         * Function to greyscale an image using BT.601 method by pointer
+         */
+        private void greyscalePointerButton_Click(object sender, EventArgs e)
+        {
+            bitMapOriginal = (Bitmap)mainPictureBox.Image;
+
+            Bitmap greyscaledBitMap = manipulatePictureByPointer(bitMapOriginal, convertBt601GreyscaleByPointer);
+
+            resultPictureBox.Image = greyscaledBitMap;
         }
     }
 }
