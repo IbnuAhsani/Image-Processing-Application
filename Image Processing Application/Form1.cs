@@ -34,8 +34,7 @@ namespace Image_Processing_Application
                 {
                     // Variables for the x, y coordinates, the bitmap for the main picture box, color value of the coordinate
                     int xCoordinate = e.X, yCoordinate = e.Y;
-                    Bitmap bitMap = (Bitmap)mainPictureBox.Image;
-                    Color pixel = bitMap.GetPixel(xCoordinate, yCoordinate);
+                    Color pixel = this.bitMapOriginal.GetPixel(xCoordinate, yCoordinate);
 
                     // Set the x, y coordinate textbox to where the mouse is hovering
                     xCoordinateTextBox.Text = e.X.ToString();
@@ -45,14 +44,11 @@ namespace Image_Processing_Application
                     rValueTextBox.Text = pixel.R.ToString();
                     gValueTextBox.Text = pixel.G.ToString();
                     bValueTextBox.Text = pixel.B.ToString();
-
-                    // Get the original picture
-                    bitMapOriginal = (Bitmap)mainPictureBox.Image;
-
+                    
                     // Get the RGB value of the specific coordinate in the picture
-                    int redValue = bitMapOriginal.GetPixel(xCoordinate, yCoordinate).R;
-                    int greenValue = bitMapOriginal.GetPixel(xCoordinate, yCoordinate).G;
-                    int blueValue = bitMapOriginal.GetPixel(xCoordinate, yCoordinate).B;
+                    int redValue = this.bitMapOriginal.GetPixel(xCoordinate, yCoordinate).R;
+                    int greenValue = this.bitMapOriginal.GetPixel(xCoordinate, yCoordinate).G;
+                    int blueValue = this.bitMapOriginal.GetPixel(xCoordinate, yCoordinate).B;
 
                     // Display the RGB value in the RGB text boxes
                     rValueTextBox.Text = redValue.ToString();
@@ -76,19 +72,33 @@ namespace Image_Processing_Application
         Bitmap bitMapOriginal, bitMapResult;
 
         /**
+         * Function to save the picture uploaded from the file explorer to the global original bit map variable
+         */
+        private void saveBitMapOriginal(Bitmap bitMapResult)
+        {
+            this.bitMapOriginal = bitMapResult;
+        }
+
+        /**
+         * Function to save the bitmap of resulting calculation to the global bit map result variable
+         */
+        private void saveAndDisplayBitMapResult(Bitmap bitMapOriginal)
+        {
+            this.bitMapResult = bitMapOriginal;
+            resultPictureBox.Image = this.bitMapResult;
+        }
+
+        /**
          * Function to setup the original and result Bitmap
-         */ 
+         */
         private void bitMapSetup()
         {
-            // Get the original picture
-            bitMapOriginal = (Bitmap)mainPictureBox.Image;
-
             // Get the width and height of the original picture
-            row = bitMapOriginal.Width;
-            column = bitMapOriginal.Height;
+            row = this.bitMapOriginal.Width;
+            column = this.bitMapOriginal.Height;
 
             // Create a new Bitmap with the size of the original picture
-            bitMapResult = new Bitmap(row, column);
+            this.bitMapResult = new Bitmap(row, column);
         }
 
         /**
@@ -128,12 +138,12 @@ namespace Image_Processing_Application
                     if (blueValue < 0) blueValue = 0;
 
                     // Set the pixel of Coordinate (i, j) of the resulting picture to the resulting RGB value 
-                    bitMapResult.SetPixel(i, j, Color.FromArgb(redValue, greenValue, blueValue));
+                    this.bitMapResult.SetPixel(i, j, Color.FromArgb(redValue, greenValue, blueValue));
                 }
             }
 
-            // Display the resulting picture
-            resultPictureBox.Image = bitMapResult;
+            // Display the resulting 
+            resultPictureBox.Image = this.bitMapResult;
 
             // Stop the cursor loading animation
             Cursor = Cursors.Default;
@@ -150,9 +160,9 @@ namespace Image_Processing_Application
             // Change the picture in the main picture box
             if (open.ShowDialog() == DialogResult.OK)
             {
-                mainPictureBox.Image = new Bitmap(open.FileName);
+                saveBitMapOriginal(new Bitmap(open.FileName));
+                mainPictureBox.Image = this.bitMapOriginal;
             }
-
         }
 
         /**
@@ -200,12 +210,12 @@ namespace Image_Processing_Application
                     greyscaledValue = getGreyscaleAverageValue(bitMapOriginal, i, j);
 
                     // Set the pixel of Coordinate (i, j) of the resulting picture to the inverted RGB value 
-                    bitMapResult.SetPixel(i, j, Color.FromArgb(greyscaledValue, greyscaledValue, greyscaledValue));
+                    this.bitMapResult.SetPixel(i, j, Color.FromArgb(greyscaledValue, greyscaledValue, greyscaledValue));
                 }
             }
 
-            // Display the resulting picture
-            resultPictureBox.Image = bitMapResult;
+            // Display the resulting 
+            resultPictureBox.Image = this.bitMapResult;
 
             // Stop the cursor loading animation
             Cursor = Cursors.Default;
@@ -244,12 +254,12 @@ namespace Image_Processing_Application
                     roundedGreyscaledValue = Convert.ToInt16(greyscaledValue);
 
                     // Set the pixel of Coordinate (i, j) of the resulting picture to the inverted RGB value 
-                    bitMapResult.SetPixel(i, j, Color.FromArgb(roundedGreyscaledValue, roundedGreyscaledValue, roundedGreyscaledValue));
+                    this.bitMapResult.SetPixel(i, j, Color.FromArgb(roundedGreyscaledValue, roundedGreyscaledValue, roundedGreyscaledValue));
                 }
             }
 
-            // Display the resulting picture
-            resultPictureBox.Image = bitMapResult;
+            // Display the resulting 
+            resultPictureBox.Image = this.bitMapResult;
 
             // Stop the cursor loading animation
             Cursor = Cursors.Default;
@@ -281,12 +291,12 @@ namespace Image_Processing_Application
                     invertBlueValue = 255 - bitMapOriginal.GetPixel(i, j).B;
 
                     // Set the pixel of Coordinate (i, j) of the resulting picture to the inverted RGB value 
-                    bitMapResult.SetPixel(i, j, Color.FromArgb(invertRedValue, invertGreenValue, invertBlueValue));
+                    this.bitMapResult.SetPixel(i, j, Color.FromArgb(invertRedValue, invertGreenValue, invertBlueValue));
                 }
             }
 
-            // Display the resulting picture
-            resultPictureBox.Image = bitMapResult;
+            // Display the resulting 
+            resultPictureBox.Image = this.bitMapResult;
 
             // Stop the cursor loading animation
             Cursor = Cursors.Default;
@@ -351,12 +361,12 @@ namespace Image_Processing_Application
                     }
 
                     // Set the pixel of Coordinate (i, j) of the resulting picture to the resulting RGB value 
-                    bitMapResult.SetPixel(i, j, Color.FromArgb(thresholdedFinalValue, thresholdedFinalValue, thresholdedFinalValue));
+                    this.bitMapResult.SetPixel(i, j, Color.FromArgb(thresholdedFinalValue, thresholdedFinalValue, thresholdedFinalValue));
                 }
             }
 
-            // Display the resulting picture
-            resultPictureBox.Image = bitMapResult;
+            // Display the resulting 
+            resultPictureBox.Image = this.bitMapResult;
 
             // Stop the cursor loading animation
             Cursor = Cursors.Default;
@@ -390,7 +400,7 @@ namespace Image_Processing_Application
                     greyscaleValue = getGreyscaleAverageValue(bitMapOriginal, i, j);
 
                     // Set the pixel of Coordinate (i, j) of the resulting picture to the inverted RGB value 
-                    bitMapResult.SetPixel(i, j, Color.FromArgb(greyscaleValue, greyscaleValue, greyscaleValue));
+                    this.bitMapResult.SetPixel(i, j, Color.FromArgb(greyscaleValue, greyscaleValue, greyscaleValue));
 
                     // Increment the amount of that specific greyscaleValue in the array
                     histogramValue[greyscaleValue]++;
@@ -405,7 +415,7 @@ namespace Image_Processing_Application
             }
 
             // Display the resulting 
-            resultPictureBox.Image = bitMapResult;
+            resultPictureBox.Image = this.bitMapResult;
 
             // Stop the cursor loading animation
             Cursor = Cursors.Default;
@@ -421,10 +431,11 @@ namespace Image_Processing_Application
                 for (int v = 0; v < 256; v++)
                 {
                     histogramValuePercentage = (histogramValue[v] * histogramHeight) / max;   // What percentage of the max is this value
-                    g.DrawLine(Pens.Black,
+                    g.DrawLine(
+                        Pens.Black,
                         new Point(v, histogramHeight),
                         new Point(v, histogramHeight - (int)Math.Round(histogramValuePercentage))  // Use that percentage of the height
-                        );
+                    );
                 }
             }
 
@@ -479,9 +490,9 @@ namespace Image_Processing_Application
             }
 
             bitMap.UnlockBits(bitMapData);
-            bitMapResult = (Bitmap)bitMap.Clone();
+            Bitmap bitMapCopy = (Bitmap)bitMap.Clone();
 
-            return bitMapResult;
+            return bitMapCopy;
         }
 
         /**
@@ -517,13 +528,11 @@ namespace Image_Processing_Application
             if (brightnessValue < 0) brightnessValue = 0;
             if (brightnessValue > 255) brightnessValue = 255;
 
-            bitMapOriginal = (Bitmap)mainPictureBox.Image;
+            Bitmap bitMapOriginalCopy = new Bitmap(this.bitMapOriginal);
+            Bitmap bitMapResult = manipulatePictureByPointerWithValue(bitMapOriginalCopy, changeBrightnessByPointer, brightnessValue);
 
-            Bitmap bitMapOriginalCopy = new Bitmap(bitMapOriginal);
-
-            Bitmap invertedBitMap = manipulatePictureByPointerWithValue(bitMapOriginalCopy, changeBrightnessByPointer, brightnessValue);
-
-            resultPictureBox.Image = invertedBitMap;
+            // Save the resulting bit map to the global bit map result variable
+            saveAndDisplayBitMapResult(bitMapResult);
         }
 
         /**
@@ -547,13 +556,11 @@ namespace Image_Processing_Application
          */
         private void invertPictureByPointerButton_Click(object sender, EventArgs e)
         {
-            bitMapOriginal = (Bitmap)mainPictureBox.Image;
-
-            Bitmap bitMapOriginalCopy = new Bitmap(bitMapOriginal);
-
+            Bitmap bitMapOriginalCopy = new Bitmap(this.bitMapOriginal);
             Bitmap invertedBitMap = manipulatePictureByPointer(bitMapOriginalCopy, invertColorByPointer);
 
-            resultPictureBox.Image = invertedBitMap;
+            // Save the resulting bit map to the global bit map result variable
+            saveAndDisplayBitMapResult(invertedBitMap);
         }
 
         /**
@@ -577,11 +584,11 @@ namespace Image_Processing_Application
          */
         private void greyscalePointerButton_Click(object sender, EventArgs e)
         {
-            bitMapOriginal = (Bitmap)mainPictureBox.Image;
+            Bitmap bitMapOriginalCopy = new Bitmap(this.bitMapOriginal);
+            Bitmap greyscaledBitMap = manipulatePictureByPointer(bitMapOriginalCopy, convertBt601GreyscaleByPointer);
 
-            Bitmap greyscaledBitMap = manipulatePictureByPointer(bitMapOriginal, convertBt601GreyscaleByPointer);
-
-            resultPictureBox.Image = greyscaledBitMap;
+            // Save the resulting bit map to the global bit map result variable
+            saveAndDisplayBitMapResult(greyscaledBitMap);
         }
     }
 }
