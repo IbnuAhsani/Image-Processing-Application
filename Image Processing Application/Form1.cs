@@ -34,21 +34,21 @@ namespace Image_Processing_Application
                 {
                     // Variables for the x, y coordinates, the bitmap for the main picture box, color value of the coordinate
                     int xCoordinate = e.X, yCoordinate = e.Y;
-                    Color pixel = this.bitMapOriginal.GetPixel(xCoordinate, yCoordinate);
+                    Color coordinatePixelValue = this.bitMapOriginal.GetPixel(xCoordinate, yCoordinate);
 
                     // Set the x, y coordinate textbox to where the mouse is hovering
-                    xCoordinateTextBox.Text = e.X.ToString();
-                    yCoordinateTextBox.Text = e.Y.ToString();
+                    xCoordinateTextBox.Text = xCoordinate.ToString();
+                    yCoordinateTextBox.Text = yCoordinate.ToString();
 
                     // Set the RGB value textbox to where the mouse is hovering
-                    rValueTextBox.Text = pixel.R.ToString();
-                    gValueTextBox.Text = pixel.G.ToString();
-                    bValueTextBox.Text = pixel.B.ToString();
+                    rValueTextBox.Text = coordinatePixelValue.R.ToString();
+                    gValueTextBox.Text = coordinatePixelValue.G.ToString();
+                    bValueTextBox.Text = coordinatePixelValue.B.ToString();
                     
                     // Get the RGB value of the specific coordinate in the picture
-                    int redValue = this.bitMapOriginal.GetPixel(xCoordinate, yCoordinate).R;
-                    int greenValue = this.bitMapOriginal.GetPixel(xCoordinate, yCoordinate).G;
-                    int blueValue = this.bitMapOriginal.GetPixel(xCoordinate, yCoordinate).B;
+                    int redValue = coordinatePixelValue.R;
+                    int greenValue = coordinatePixelValue.G;
+                    int blueValue = coordinatePixelValue.B;
 
                     // Display the RGB value in the RGB text boxes
                     rValueTextBox.Text = redValue.ToString();
@@ -122,10 +122,12 @@ namespace Image_Processing_Application
                 // For how wide the original picture is
                 for (int j = 0; j < column; j++)
                 {
+                    Color coordinatePixelValue = this.bitMapOriginal.GetPixel(i, j);
+
                     // Add the brightness value to the original RGB value 
-                    redValue = bitMapOriginal.GetPixel(i, j).R + brightnessValue;
-                    greenValue = bitMapOriginal.GetPixel(i, j).G + brightnessValue;
-                    blueValue = bitMapOriginal.GetPixel(i, j).B + brightnessValue;
+                    redValue = coordinatePixelValue.R + brightnessValue;
+                    greenValue = coordinatePixelValue.G + brightnessValue;
+                    blueValue = coordinatePixelValue.B + brightnessValue;
 
                     // If the resulting RGB value exceeds maximum brightness value
                     if (redValue > 255) redValue = 255;
@@ -242,10 +244,12 @@ namespace Image_Processing_Application
                 // For how wide the original picture is
                 for (int j = 0; j < column; j++)
                 {
+                    Color coordinatePixelValue = this.bitMapOriginal.GetPixel(i, j);
+
                     // Get the original RGB value
-                    redValue = bitMapOriginal.GetPixel(i, j).R;
-                    greenValue = bitMapOriginal.GetPixel(i, j).G;
-                    blueValue = bitMapOriginal.GetPixel(i, j).B;
+                    redValue = coordinatePixelValue.R;
+                    greenValue = coordinatePixelValue.G;
+                    blueValue = coordinatePixelValue.B;
 
                     // Calculate greyscale value based on Luma method
                     greyscaledValue = 0.2126 * redValue + 0.7152 * greenValue + 0.0722 * blueValue;
@@ -285,10 +289,12 @@ namespace Image_Processing_Application
                 // For how wide the original picture is
                 for (int j = 0; j < column; j++)
                 {
+                    Color coordinatePixelValue = this.bitMapOriginal.GetPixel(i, j);
+
                     // Convert the original RGB to inverted value
-                    invertRedValue = 255 - bitMapOriginal.GetPixel(i, j).R;
-                    invertGreenValue = 255 - bitMapOriginal.GetPixel(i, j).G;
-                    invertBlueValue = 255 - bitMapOriginal.GetPixel(i, j).B;
+                    invertRedValue = 255 - coordinatePixelValue.R;
+                    invertGreenValue = 255 - coordinatePixelValue.G;
+                    invertBlueValue = 255 - coordinatePixelValue.B;
 
                     // Set the pixel of Coordinate (i, j) of the resulting picture to the inverted RGB value 
                     this.bitMapResult.SetPixel(i, j, Color.FromArgb(invertRedValue, invertGreenValue, invertBlueValue));
@@ -340,10 +346,12 @@ namespace Image_Processing_Application
                 // For how wide the original picture is
                 for (int j = 0; j < column; j++)
                 {
+                    Color coordinatePixelValue = this.bitMapOriginal.GetPixel(i, j);
+
                     // Get the original RGB value
-                    redValue = bitMapOriginal.GetPixel(i, j).R;
-                    greenValue = bitMapOriginal.GetPixel(i, j).G;
-                    blueValue = bitMapOriginal.GetPixel(i, j).B;
+                    redValue = coordinatePixelValue.R;
+                    greenValue = coordinatePixelValue.G;
+                    blueValue = coordinatePixelValue.B;
 
                     // Get the thresholded RGB value
                     thresholdedRedValue = getThresholdValue(redValue, thresholdValue);
