@@ -467,44 +467,42 @@ namespace Image_Processing_Application
         /**
          * Unlock and lock the addresses of each pixels in order to be used for manipulation with an extra param for text box variable
          */
-        private Bitmap manipulatePictureByPointerWithValue(Bitmap bitMap, Action<BitmapData, int> calculationFunction, int textBoxValue)
+        private Bitmap manipulatePictureByPointerWithValue(Bitmap bitMap, Action<BitmapData, int, int, int> calculationFunction, int textBoxValue)
         {
             BitmapData bitMapData = bitMap.LockBits(new Rectangle(0, 0, bitMap.Width, bitMap.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
+            int numOffset = bitMapData.Stride - bitMapData.Width * 3;
+            int numWidth = bitMapData.Width * 3;
 
             unsafe
             {
-                calculationFunction(bitMapData, textBoxValue);
+                calculationFunction(bitMapData, textBoxValue, numWidth, numOffset);
             }
 
             bitMap.UnlockBits(bitMapData);
+            bitMapResult = (Bitmap)bitMap.Clone();
 
-            return bitMap;
+            return bitMapResult;
         }
 
         /**
          * Calculations to brighten the pixel of the image
          */
-        unsafe void changeBrightnessByPointer(BitmapData bitMapData, int brightnessValue)
+        unsafe void changeBrightnessByPointer(BitmapData bitMapData, int brightnessValue, int numWidth, int numOffset)
         {
+            int x;
             byte* p = (byte*)(void*)bitMapData.Scan0.ToPointer();
-            int stopAddress = (int)p + bitMapData.Stride * bitMapData.Height;
-            while ((int)p != stopAddress)
+            for (int i = 0; i < bitMapData.Height; i++)
             {
-                p[0] = (byte)(p[0] + brightnessValue);
-                p[1] = (byte)(p[1] + brightnessValue);
-                p[2] = (byte)(p[2] + brightnessValue);
+                for (int j = 0; j < numWidth; j++)
+                {
+                    x = (int)(p[0] + brightnessValue);
+                    if (x < 0) x = 0;
+                    if (x > 255) x = 255;
 
-                // If the resulting RGB value exceeds maximum brightness value
-                if (p[0] > 255) p[0] = 255;
-                if (p[1] > 255) p[1] = 255;
-                if (p[2] > 255) p[2] = 255;
-
-                // If the resulting RGB value exceeds minimum brightness value
-                if (p[0] < 0) p[0] = 0;
-                if (p[1] < 0) p[1] = 0;
-                if (p[2] < 0) p[2] = 0;
-
-                p += 3;
+                    p[0] = (byte)x;
+                    ++p;
+                }
+                p += numOffset;
             }
         }
 
@@ -515,6 +513,10 @@ namespace Image_Processing_Application
         {
             // Get the brightness value from brightness text box
             int brightnessValue = Convert.ToInt16(brightnessByPointerTextBox.Text);
+
+            if (brightnessValue < 0) brightnessValue = 0;
+            if (brightnessValue > 255) brightnessValue = 255;
+
             bitMapOriginal = (Bitmap)mainPictureBox.Image;
 
             Bitmap bitMapOriginalCopy = new Bitmap(bitMapOriginal);
