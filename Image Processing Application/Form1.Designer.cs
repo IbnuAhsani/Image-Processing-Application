@@ -462,6 +462,7 @@
             this.thresholdingPictureByPointerButton.TabIndex = 26;
             this.thresholdingPictureByPointerButton.Text = "Process";
             this.thresholdingPictureByPointerButton.UseVisualStyleBackColor = true;
+            this.thresholdingPictureByPointerButton.Click += new System.EventHandler(this.thresholdingPictureByPointerButton_Click);
             // 
             // brightnessByPointerGroupBox
             // 
