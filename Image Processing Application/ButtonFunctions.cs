@@ -3,8 +3,12 @@ using System.Drawing;
 
 namespace Image_Processing_Application
 {
-    internal class ButtonFunctions
+    internal class CalculatedButtonFunctions
     {
+        /// <summary>
+        /// Button Functions by Calculation
+        /// </summary>
+
         internal Bitmap changeBrightness(int row, int column, int brightnessValue, Bitmap bitMapSource)
         {
             // RGB values for the calculated pixel value

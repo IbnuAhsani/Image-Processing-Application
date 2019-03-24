@@ -13,12 +13,14 @@ namespace Image_Processing_Application
 {
     public partial class Form1 : Form
     {
-        ButtonFunctions buttonFunctions;
+        CalculatedButtonFunctions calculatedButtonFunctions;
+        PointerButtonFunctions pointerButtonFunctions;
 
         public Form1()
         {
             InitializeComponent();
-            buttonFunctions = new ButtonFunctions();
+            calculatedButtonFunctions = new CalculatedButtonFunctions();
+            pointerButtonFunctions = new PointerButtonFunctions();
         }
 
         /// <summary>
@@ -109,7 +111,7 @@ namespace Image_Processing_Application
             Cursor = Cursors.WaitCursor;
 
             // Change the brightness of the picture
-            this.bitMapResult = buttonFunctions.changeBrightness(row, column, brightnessValue, this.bitMapOriginal);
+            this.bitMapResult = calculatedButtonFunctions.changeBrightness(row, column, brightnessValue, this.bitMapOriginal);
 
             // Display the resulting 
             resultPictureBox.Image = this.bitMapResult;
@@ -155,7 +157,7 @@ namespace Image_Processing_Application
             Cursor = Cursors.WaitCursor;
 
             // Calculate for the greyscaled picture by averging
-            this.bitMapResult = buttonFunctions.greyscaleAveraging(row, column, this.bitMapOriginal);
+            this.bitMapResult = calculatedButtonFunctions.greyscaleAveraging(row, column, this.bitMapOriginal);
 
             // Display the resulting 
             resultPictureBox.Image = this.bitMapResult;
@@ -177,7 +179,7 @@ namespace Image_Processing_Application
             Cursor = Cursors.WaitCursor;
 
             // Calculate for the greyscaled picture by Luma equation
-            this.bitMapResult = buttonFunctions.greyscaleLuma(row, column, bitMapOriginal);
+            this.bitMapResult = calculatedButtonFunctions.greyscaleLuma(row, column, bitMapOriginal);
 
             // Display the resulting 
             resultPictureBox.Image = this.bitMapResult;
@@ -199,7 +201,7 @@ namespace Image_Processing_Application
             Cursor = Cursors.WaitCursor;
 
             // Calculate for the inverted version of the picture
-            this.bitMapResult = buttonFunctions.invertPicture(row, column, bitMapOriginal);
+            this.bitMapResult = calculatedButtonFunctions.invertPicture(row, column, bitMapOriginal);
 
             // Display the resulting 
             resultPictureBox.Image = this.bitMapResult;
@@ -223,7 +225,7 @@ namespace Image_Processing_Application
             Cursor = Cursors.WaitCursor;
 
             // Calculate for the thresholded picture
-            this.bitMapResult = buttonFunctions.thresholdPicture(row, column, thresholdValue, bitMapOriginal);
+            this.bitMapResult = calculatedButtonFunctions.thresholdPicture(row, column, thresholdValue, bitMapOriginal);
 
             // Display the resulting 
             resultPictureBox.Image = this.bitMapResult;
@@ -257,7 +259,7 @@ namespace Image_Processing_Application
                 for (int j = 0; j < column; j++)
                 {
                     // Convert the original RGB to inverted value
-                    greyscaleValue = buttonFunctions.getGreyscaleAverageValue(i, j, bitMapOriginal);
+                    greyscaleValue = calculatedButtonFunctions.getGreyscaleAverageValue(i, j, bitMapOriginal);
 
                     // Set the pixel of Coordinate (i, j) of the resulting picture to the inverted RGB value 
                     this.bitMapResult.SetPixel(i, j, Color.FromArgb(greyscaleValue, greyscaleValue, greyscaleValue));
@@ -319,45 +321,12 @@ namespace Image_Processing_Application
         /// </summary>
 
         /**
-         * Unlock and lock the addresses of each pixels in order to be used for manipulation
-         */
-        private Bitmap manipulatePictureByPointer(Bitmap bitMap, Action<BitmapData> calculationFunction)
-        {
-            BitmapData bitMapData = bitMap.LockBits(new Rectangle(0, 0, bitMap.Width, bitMap.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
-
-            unsafe
-            {
-                calculationFunction(bitMapData);
-            }
-
-            bitMap.UnlockBits(bitMapData);
-
-            return bitMap;
-        }
-
-        /**
-         * Calculations to invert picture's color by pointer
-         */
-        unsafe void invertColorByPointer(BitmapData bitMapData)
-        {
-            byte* p = (byte*)(void*)bitMapData.Scan0.ToPointer();
-            int stopAddress = (int)p + bitMapData.Stride * bitMapData.Height;
-            while ((int)p != stopAddress)
-            {
-                p[0] = (byte)(255 - p[0]);
-                p[1] = (byte)(255 - p[1]);
-                p[2] = (byte)(255 - p[2]);
-                p += 3;
-            }
-        }
-
-        /**
          * Function to invert the color of the picture by pointer
          */
         private void invertPictureByPointerButton_Click(object sender, EventArgs e)
         {
             Bitmap bitMapOriginalCopy = new Bitmap(this.bitMapOriginal);
-            Bitmap invertedBitMap = manipulatePictureByPointer(bitMapOriginalCopy, invertColorByPointer);
+            Bitmap invertedBitMap = pointerButtonFunctions.manipulatePicture(bitMapOriginalCopy, pointerButtonFunctions.invertColor);
 
             // Save the resulting bit map to the global bit map result variable
             saveAndDisplayBitMapResult(invertedBitMap);
@@ -385,7 +354,7 @@ namespace Image_Processing_Application
         private void greyscalePointerButton_Click(object sender, EventArgs e)
         {
             Bitmap bitMapOriginalCopy = new Bitmap(this.bitMapOriginal);
-            Bitmap greyscaledBitMap = manipulatePictureByPointer(bitMapOriginalCopy, convertBt601GreyscaleByPointer);
+            Bitmap greyscaledBitMap = pointerButtonFunctions.manipulatePicture(bitMapOriginalCopy, convertBt601GreyscaleByPointer);
 
             // Save the resulting bit map to the global bit map result variable
             saveAndDisplayBitMapResult(greyscaledBitMap);
