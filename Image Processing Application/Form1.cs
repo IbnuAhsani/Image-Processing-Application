@@ -333,28 +333,12 @@ namespace Image_Processing_Application
         }
 
         /**
-         * Calculations to convert picture to greyscale using BT.601 method by pointer
-         */
-        unsafe void convertBt601GreyscaleByPointer(BitmapData bitMapData)
-        {
-            byte* p = (byte*)(void*)bitMapData.Scan0.ToPointer();
-            int stopAddress = (int)p + bitMapData.Stride * bitMapData.Height;
-            while ((int)p != stopAddress)
-            {
-                p[0] = (byte)(.299 * p[2] + .587 * p[1] + .114 * p[0]);
-                p[1] = p[0];
-                p[2] = p[0];
-                p += 3;
-            }
-        }
-
-        /**
          * Function to greyscale an image using BT.601 method by pointer
          */
         private void greyscalePointerButton_Click(object sender, EventArgs e)
         {
             Bitmap bitMapOriginalCopy = new Bitmap(this.bitMapOriginal);
-            Bitmap greyscaledBitMap = pointerButtonFunctions.manipulatePicture(bitMapOriginalCopy, convertBt601GreyscaleByPointer);
+            Bitmap greyscaledBitMap = pointerButtonFunctions.manipulatePicture(bitMapOriginalCopy, pointerButtonFunctions.convertBt601Greyscale);
 
             // Save the resulting bit map to the global bit map result variable
             saveAndDisplayBitMapResult(greyscaledBitMap);
