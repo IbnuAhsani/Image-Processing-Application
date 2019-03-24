@@ -345,48 +345,6 @@ namespace Image_Processing_Application
         }
 
         /**
-         * Unlock and lock the addresses of each pixels in order to be used for manipulation with an extra param for text box variable and with a helper function that has 1 param
-         */
-        private Bitmap manipulatePictureByPointerWithOneParam(Bitmap bitMap, Action<BitmapData, int> calculationFunction, int textBoxValue)
-        {
-            BitmapData bitMapData = bitMap.LockBits(new Rectangle(0, 0, bitMap.Width, bitMap.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
-
-            unsafe
-            {
-                calculationFunction(bitMapData, textBoxValue);
-            }
-
-            bitMap.UnlockBits(bitMapData);
-
-            return bitMap;
-        }
-
-        /**
-         * Calculations to threshold the picture based on the input threshold value
-         */
-        unsafe void thresholdByPointer(BitmapData bitMapData, int thresholdValue)
-        {
-            int finalThresholdValue;
-            byte* p = (byte*)(void*)bitMapData.Scan0.ToPointer();
-            int stopAddress = (int)p + bitMapData.Stride * bitMapData.Height;
-            while ((int)p != stopAddress)
-            {
-                if (p[0] < thresholdValue && p[1] < thresholdValue && p[2] < thresholdValue)
-                {
-                    finalThresholdValue = 0;
-                }
-                else
-                {
-                    finalThresholdValue = 255;
-                }
-                p[0] = (byte)finalThresholdValue;
-                p[1] = (byte)finalThresholdValue;
-                p[2] = (byte)finalThresholdValue;
-                p += 3;
-            }
-        }
-
-        /**
          * Function to threshold the picture
          */
         private void thresholdingPictureByPointerButton_Click(object sender, EventArgs e)
@@ -402,51 +360,8 @@ namespace Image_Processing_Application
 
             // Save the resulting bit map to the global bit map result variable
             saveAndDisplayBitMapResult(bitMapResult);
-
         }
-
-        /**
-         * Unlock and lock the addresses of each pixels in order to be used for manipulation with an extra param for text box variable and with a helper function that has 3 params
-         */
-        private Bitmap manipulatePictureByPointerWithThreeParams(Bitmap bitMap, Action<BitmapData, int, int, int> calculationFunction, int textBoxValue)
-        {
-            BitmapData bitMapData = bitMap.LockBits(new Rectangle(0, 0, bitMap.Width, bitMap.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
-            int numOffset = bitMapData.Stride - bitMapData.Width * 3;
-            int numWidth = bitMapData.Width * 3;
-
-            unsafe
-            {
-                calculationFunction(bitMapData, textBoxValue, numWidth, numOffset);
-            }
-
-            bitMap.UnlockBits(bitMapData);
-            Bitmap bitMapCopy = (Bitmap)bitMap.Clone();
-
-            return bitMapCopy;
-        }
-
-        /**
-         * Calculations to brighten the pixel of the image
-         */
-        unsafe void changeBrightnessByPointer(BitmapData bitMapData, int brightnessValue, int numWidth, int numOffset)
-        {
-            int x;
-            byte* p = (byte*)(void*)bitMapData.Scan0.ToPointer();
-            for (int i = 0; i < bitMapData.Height; i++)
-            {
-                for (int j = 0; j < numWidth; j++)
-                {
-                    x = (int)(p[0] + brightnessValue);
-                    if (x < 0) x = 0;
-                    if (x > 255) x = 255;
-
-                    p[0] = (byte)x;
-                    ++p;
-                }
-                p += numOffset;
-            }
-        }
-
+        
         /**
          * Function to brighten the color of the picture by pointer
          */
@@ -459,7 +374,7 @@ namespace Image_Processing_Application
             if (brightnessValue > 255) brightnessValue = 255;
 
             Bitmap bitMapOriginalCopy = new Bitmap(this.bitMapOriginal);
-            Bitmap bitMapResult = manipulatePictureByPointerWithThreeParams(bitMapOriginalCopy, changeBrightnessByPointer, brightnessValue);
+            Bitmap bitMapResult = pointerButtonFunctions.manipulatePictureWithThreeParams(brightnessValue, bitMapOriginalCopy, pointerButtonFunctions.changeBrightness);
 
             // Save the resulting bit map to the global bit map result variable
             saveAndDisplayBitMapResult(bitMapResult);

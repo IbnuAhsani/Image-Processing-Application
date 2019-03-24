@@ -96,5 +96,47 @@ namespace Image_Processing_Application
                 p += 3;
             }
         }
+
+        /**
+         * Unlock and lock the addresses of each pixels in order to be used for manipulation with an extra param for text box variable and with a helper function that has 3 params
+         */
+        internal Bitmap manipulatePictureWithThreeParams(int textBoxValue, Bitmap bitMapSource, Action<int, int, int, BitmapData> calculationFunction)
+        {
+            BitmapData bitMapData = bitMapSource.LockBits(new Rectangle(0, 0, bitMapSource.Width, bitMapSource.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
+            int numOffset = bitMapData.Stride - bitMapData.Width * 3;
+            int numWidth = bitMapData.Width * 3;
+
+            unsafe
+            {
+                calculationFunction(numWidth, numOffset, textBoxValue, bitMapData);
+            }
+
+            bitMapSource.UnlockBits(bitMapData);
+            Bitmap bitMapCopy = (Bitmap)bitMapSource.Clone();
+
+            return bitMapCopy;
+        }
+
+        /**
+         * Calculations to brighten the pixel of the image
+         */
+        internal unsafe void changeBrightness(int numWidth, int numOffset, int brightnessValue, BitmapData bitMapSourceData)
+        {
+            int x;
+            byte* p = (byte*)(void*)bitMapSourceData.Scan0.ToPointer();
+            for (int i = 0; i < bitMapSourceData.Height; i++)
+            {
+                for (int j = 0; j < numWidth; j++)
+                {
+                    x = (int)(p[0] + brightnessValue);
+                    if (x < 0) x = 0;
+                    if (x > 255) x = 255;
+
+                    p[0] = (byte)x;
+                    ++p;
+                }
+                p += numOffset;
+            }
+        }
     }
 }
