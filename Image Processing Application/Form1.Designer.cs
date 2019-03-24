@@ -436,7 +436,7 @@
             this.thresholdingByPointerGroupBox.Size = new System.Drawing.Size(186, 86);
             this.thresholdingByPointerGroupBox.TabIndex = 35;
             this.thresholdingByPointerGroupBox.TabStop = false;
-            this.thresholdingByPointerGroupBox.Text = "Thresholding";
+            this.thresholdingByPointerGroupBox.Text = "Thresholding by Pointer";
             // 
             // label1
             // 

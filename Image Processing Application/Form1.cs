@@ -398,7 +398,7 @@ namespace Image_Processing_Application
             if (thresholdValue > 255) thresholdValue = 255;
 
             Bitmap bitMapOriginalCopy = new Bitmap(this.bitMapOriginal);
-            Bitmap bitMapResult = manipulatePictureByPointerWithOneParam(bitMapOriginalCopy, thresholdByPointer, thresholdValue);
+            Bitmap bitMapResult = pointerButtonFunctions.manipulatePictureWithOneParam(thresholdValue, bitMapOriginalCopy, pointerButtonFunctions.threshold);
 
             // Save the resulting bit map to the global bit map result variable
             saveAndDisplayBitMapResult(bitMapResult);
