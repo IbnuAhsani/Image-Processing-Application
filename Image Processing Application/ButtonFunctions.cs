@@ -44,5 +44,43 @@ namespace Image_Processing_Application
             // Returns the resulting bitmap
             return bitMapResult;
         }
+
+        /**
+         * Function that returns the greyscale value based on averaging method
+         */
+        internal int getGreyscaleAverageValue(int row, int column, Bitmap bitMapSource)
+        {
+            Color pixel = bitMapSource.GetPixel(row, column);
+            int redValue = pixel.R;
+            int greenValue = pixel.G;
+            int blueValue = pixel.B;
+
+            return (redValue + greenValue + blueValue) / 3;
+        }
+
+        internal Bitmap greyscaleAveraging(int row, int column, Bitmap bitMapSource)
+        {
+            // Greyscaled RGB values
+            int greyscaledValue;
+
+            // Create a new empty bitmap with the same dimensions as the source bitmap
+            Bitmap bitMapResult = new Bitmap(bitMapSource.Width, bitMapSource.Height);
+
+            // For how tall the original picture is
+            for (int i = 0; i < row; i++)
+            {
+                // For how wide the original picture is
+                for (int j = 0; j < column; j++)
+                {
+                    // Convert the original RGB to inverted value
+                    greyscaledValue = getGreyscaleAverageValue(i, j, bitMapSource);
+
+                    // Set the pixel of Coordinate (i, j) of the resulting picture to the inverted RGB value 
+                    bitMapResult.SetPixel(i, j, Color.FromArgb(greyscaledValue, greyscaledValue, greyscaledValue));
+                }
+            }
+           
+            return bitMapResult;
+        }
     }
 }

@@ -108,6 +108,7 @@ namespace Image_Processing_Application
             // Display the loading animation for the cursor
             Cursor = Cursors.WaitCursor;
 
+            // Change the brightness of the picture
             this.bitMapResult = buttonFunctions.changeBrightness(row, column, brightnessValue, this.bitMapOriginal);
 
             // Display the resulting 
@@ -142,25 +143,10 @@ namespace Image_Processing_Application
         }
 
         /**
-         * Function that returns the greyscale value based on averaging method
-         */ 
-        private int getGreyscaleAverageValue(Bitmap bitmap, int row, int column)
-        {
-            Color pixel = bitmap.GetPixel(row, column);
-            int redValue = pixel.R;
-            int greenValue = pixel.G;
-            int blueValue = pixel.B;
-
-            return (redValue + greenValue + blueValue) / 3;
-        }
-
-        /**
          * Function to greyscale a picture using averaging method
          */ 
         private void greyscaleAveragingButton_Click(object sender, EventArgs e)
         {
-            // Greyscaled RGB values
-            int greyscaledValue;
 
             // Setup the original and result Bitmap
             bitMapSetup();
@@ -168,19 +154,8 @@ namespace Image_Processing_Application
             // Display the loading animation for the cursor
             Cursor = Cursors.WaitCursor;
 
-            // For how tall the original picture is
-            for (int i = 0; i < row; i++)
-            {
-                // For how wide the original picture is
-                for (int j = 0; j < column; j++)
-                {
-                    // Convert the original RGB to inverted value
-                    greyscaledValue = getGreyscaleAverageValue(bitMapOriginal, i, j);
-
-                    // Set the pixel of Coordinate (i, j) of the resulting picture to the inverted RGB value 
-                    this.bitMapResult.SetPixel(i, j, Color.FromArgb(greyscaledValue, greyscaledValue, greyscaledValue));
-                }
-            }
+            // Calculate for the greyscaled picture by averging
+            this.bitMapResult = buttonFunctions.greyscaleAveraging(row, column, this.bitMapOriginal);
 
             // Display the resulting 
             resultPictureBox.Image = this.bitMapResult;
@@ -371,7 +346,7 @@ namespace Image_Processing_Application
                 for (int j = 0; j < column; j++)
                 {
                     // Convert the original RGB to inverted value
-                    greyscaleValue = getGreyscaleAverageValue(bitMapOriginal, i, j);
+                    greyscaleValue = buttonFunctions.getGreyscaleAverageValue(i, j, bitMapOriginal);
 
                     // Set the pixel of Coordinate (i, j) of the resulting picture to the inverted RGB value 
                     this.bitMapResult.SetPixel(i, j, Color.FromArgb(greyscaleValue, greyscaleValue, greyscaleValue));
