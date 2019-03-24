@@ -118,5 +118,34 @@ namespace Image_Processing_Application
 
             return bitMapResult;
         }
+
+        internal Bitmap invertPicture(int row, int column, Bitmap bitMapSource)
+        {
+            // Inverted RGB values
+            int invertRedValue, invertGreenValue, invertBlueValue;
+
+            // Create a new empty bitmap with the same dimensions as the source bitmap
+            Bitmap bitMapResult = new Bitmap(bitMapSource.Width, bitMapSource.Height);
+
+            // For how tall the original picture is
+            for (int i = 0; i < row; i++)
+            {
+                // For how wide the original picture is
+                for (int j = 0; j < column; j++)
+                {
+                    Color coordinatePixelValue = bitMapSource.GetPixel(i, j);
+
+                    // Convert the original RGB to inverted value
+                    invertRedValue = 255 - coordinatePixelValue.R;
+                    invertGreenValue = 255 - coordinatePixelValue.G;
+                    invertBlueValue = 255 - coordinatePixelValue.B;
+
+                    // Set the pixel of Coordinate (i, j) of the resulting picture to the inverted RGB value 
+                    bitMapResult.SetPixel(i, j, Color.FromArgb(invertRedValue, invertGreenValue, invertBlueValue));
+                }
+            }
+
+            return bitMapResult;
+        }
     }
 }

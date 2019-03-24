@@ -191,8 +191,6 @@ namespace Image_Processing_Application
          */
         private void invertPictureButton_Click(object sender, EventArgs e)
         {
-            // Inverted RGB values
-            int invertRedValue, invertGreenValue, invertBlueValue;
 
             // Setup the original and result Bitmap
             bitMapSetup();
@@ -200,23 +198,8 @@ namespace Image_Processing_Application
             // Display the loading animation for the cursor
             Cursor = Cursors.WaitCursor;
 
-            // For how tall the original picture is
-            for (int i = 0; i < row; i++)
-            {
-                // For how wide the original picture is
-                for (int j = 0; j < column; j++)
-                {
-                    Color coordinatePixelValue = this.bitMapOriginal.GetPixel(i, j);
-
-                    // Convert the original RGB to inverted value
-                    invertRedValue = 255 - coordinatePixelValue.R;
-                    invertGreenValue = 255 - coordinatePixelValue.G;
-                    invertBlueValue = 255 - coordinatePixelValue.B;
-
-                    // Set the pixel of Coordinate (i, j) of the resulting picture to the inverted RGB value 
-                    this.bitMapResult.SetPixel(i, j, Color.FromArgb(invertRedValue, invertGreenValue, invertBlueValue));
-                }
-            }
+            // Calculate for the inverted version of the picture
+            this.bitMapResult = buttonFunctions.invertPicture(row, column, bitMapOriginal);
 
             // Display the resulting 
             resultPictureBox.Image = this.bitMapResult;
