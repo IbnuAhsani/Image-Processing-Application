@@ -13,9 +13,12 @@ namespace Image_Processing_Application
 {
     public partial class Form1 : Form
     {
+        ButtonFunctions buttonFunctions;
+
         public Form1()
         {
             InitializeComponent();
+            buttonFunctions = new ButtonFunctions();
         }
 
         /// <summary>
@@ -44,16 +47,6 @@ namespace Image_Processing_Application
                     rValueTextBox.Text = coordinatePixelValue.R.ToString();
                     gValueTextBox.Text = coordinatePixelValue.G.ToString();
                     bValueTextBox.Text = coordinatePixelValue.B.ToString();
-                    
-                    // Get the RGB value of the specific coordinate in the picture
-                    int redValue = coordinatePixelValue.R;
-                    int greenValue = coordinatePixelValue.G;
-                    int blueValue = coordinatePixelValue.B;
-
-                    // Display the RGB value in the RGB text boxes
-                    rValueTextBox.Text = redValue.ToString();
-                    gValueTextBox.Text = greenValue.ToString();
-                    bValueTextBox.Text = blueValue.ToString();
 
                     isGetXYRGBValuesActivated = false;
                 }
@@ -108,7 +101,6 @@ namespace Image_Processing_Application
         {
             // Get the brightness value from brightness text box
             int brightnessValue = Convert.ToInt16(brightnessTextBox.Text);
-            int redValue, greenValue, blueValue;
 
             // Setup the original and result Bitmap
             bitMapSetup();
@@ -116,33 +108,7 @@ namespace Image_Processing_Application
             // Display the loading animation for the cursor
             Cursor = Cursors.WaitCursor;
 
-            // For how tall the original picture is
-            for (int i = 0; i < row; i++)
-            {
-                // For how wide the original picture is
-                for (int j = 0; j < column; j++)
-                {
-                    Color coordinatePixelValue = this.bitMapOriginal.GetPixel(i, j);
-
-                    // Add the brightness value to the original RGB value 
-                    redValue = coordinatePixelValue.R + brightnessValue;
-                    greenValue = coordinatePixelValue.G + brightnessValue;
-                    blueValue = coordinatePixelValue.B + brightnessValue;
-
-                    // If the resulting RGB value exceeds maximum brightness value
-                    if (redValue > 255) redValue = 255;
-                    if (greenValue > 255) greenValue = 255;
-                    if (blueValue > 255) blueValue = 255;
-
-                    // If the resulting RGB value exceeds minimum brightness value
-                    if (redValue < 0) redValue = 0;
-                    if (greenValue < 0) greenValue = 0;
-                    if (blueValue < 0) blueValue = 0;
-
-                    // Set the pixel of Coordinate (i, j) of the resulting picture to the resulting RGB value 
-                    this.bitMapResult.SetPixel(i, j, Color.FromArgb(redValue, greenValue, blueValue));
-                }
-            }
+            this.bitMapResult = buttonFunctions.changeBrightness(row, column, brightnessValue, this.bitMapOriginal);
 
             // Display the resulting 
             resultPictureBox.Image = this.bitMapResult;
