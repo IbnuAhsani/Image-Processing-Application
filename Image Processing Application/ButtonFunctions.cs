@@ -147,5 +147,63 @@ namespace Image_Processing_Application
 
             return bitMapResult;
         }
+
+        /**
+         * Returns 0 OR 255 based on the rgbValue and thresholdValue
+         */
+        private int getThresholdValue(int rgbValue, int thresholdValue)
+        {
+            if (rgbValue > thresholdValue)
+            {
+                return 255;
+            }
+
+            return 0;
+        }
+
+        internal Bitmap thresholdPicture(int row, int column, int thresholdValue, Bitmap bitMapSource)
+        {
+            // Variables for the RGB and thresholded RGB value
+            int redValue, greenValue, blueValue;
+            int thresholdedRedValue, thresholdedGreenValue, thresholdedBlueValue, thresholdedFinalValue;
+
+            // Create a new empty bitmap with the same dimensions as the source bitmap
+            Bitmap bitMapResult = new Bitmap(bitMapSource.Width, bitMapSource.Height);
+
+            // For how tall the original picture is
+            for (int i = 0; i < row; i++)
+            {
+                // For how wide the original picture is
+                for (int j = 0; j < column; j++)
+                {
+                    Color coordinatePixelValue = bitMapSource.GetPixel(i, j);
+
+                    // Get the original RGB value
+                    redValue = coordinatePixelValue.R;
+                    greenValue = coordinatePixelValue.G;
+                    blueValue = coordinatePixelValue.B;
+
+                    // Get the thresholded RGB value
+                    thresholdedRedValue = getThresholdValue(redValue, thresholdValue);
+                    thresholdedGreenValue = getThresholdValue(greenValue, thresholdValue);
+                    thresholdedBlueValue = getThresholdValue(blueValue, thresholdValue);
+
+                    // Calculate for the final threshold value
+                    if (thresholdedRedValue > thresholdValue && thresholdedGreenValue > thresholdValue && thresholdedBlueValue > thresholdValue)
+                    {
+                        thresholdedFinalValue = 255;
+                    }
+                    else
+                    {
+                        thresholdedFinalValue = 0;
+                    }
+
+                    // Set the pixel of Coordinate (i, j) of the resulting picture to the resulting RGB value 
+                    bitMapResult.SetPixel(i, j, Color.FromArgb(thresholdedFinalValue, thresholdedFinalValue, thresholdedFinalValue));
+                }
+            }
+
+            return bitMapResult;
+        }
     }
 }

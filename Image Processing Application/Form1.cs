@@ -209,20 +209,6 @@ namespace Image_Processing_Application
         }
 
         /**
-         * Returns 0 OR 255 based on the rgbValue and thresholdValue
-         */
-        private int getThresholdValue(int rgbValue, int thresholdValue)
-        {
-            if(rgbValue > thresholdValue)
-            {
-                return 255;
-            }
-
-            return 0;
-        }
-
-
-        /**
          * Function to greyscale an image based on a specific threshold
          */
         private void thresholdPictureButton_Click(object sender, EventArgs e)
@@ -230,48 +216,14 @@ namespace Image_Processing_Application
             // Get the threshold value from threshold text box
             int thresholdValue = Convert.ToInt16(thresholdValueTextBox.Text);
 
-            // Variables for the RGB and thresholded RGB value
-            int redValue, greenValue, blueValue;
-            int thresholdedRedValue, thresholdedGreenValue, thresholdedBlueValue, thresholdedFinalValue;
-
             // Setup the original and result Bitmap
             bitMapSetup();
 
             // Display the loading animation for the cursor
             Cursor = Cursors.WaitCursor;
 
-            // For how tall the original picture is
-            for (int i = 0; i < row; i++)
-            {
-                // For how wide the original picture is
-                for (int j = 0; j < column; j++)
-                {
-                    Color coordinatePixelValue = this.bitMapOriginal.GetPixel(i, j);
-
-                    // Get the original RGB value
-                    redValue = coordinatePixelValue.R;
-                    greenValue = coordinatePixelValue.G;
-                    blueValue = coordinatePixelValue.B;
-
-                    // Get the thresholded RGB value
-                    thresholdedRedValue = getThresholdValue(redValue, thresholdValue);
-                    thresholdedGreenValue = getThresholdValue(greenValue, thresholdValue);
-                    thresholdedBlueValue = getThresholdValue(blueValue, thresholdValue);
-
-                    // Calculate for the final threshold value
-                    if(thresholdedRedValue > thresholdValue && thresholdedGreenValue > thresholdValue && thresholdedBlueValue > thresholdValue)
-                    {
-                        thresholdedFinalValue = 255;
-                    }
-                    else
-                    {
-                        thresholdedFinalValue = 0;
-                    }
-
-                    // Set the pixel of Coordinate (i, j) of the resulting picture to the resulting RGB value 
-                    this.bitMapResult.SetPixel(i, j, Color.FromArgb(thresholdedFinalValue, thresholdedFinalValue, thresholdedFinalValue));
-                }
-            }
+            // Calculate for the thresholded picture
+            this.bitMapResult = buttonFunctions.thresholdPicture(row, column, thresholdValue, bitMapOriginal);
 
             // Display the resulting 
             resultPictureBox.Image = this.bitMapResult;
