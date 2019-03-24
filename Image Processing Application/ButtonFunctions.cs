@@ -82,5 +82,41 @@ namespace Image_Processing_Application
            
             return bitMapResult;
         }
+
+        internal Bitmap greyscaleLuma(int row, int column, Bitmap bitMapSource)
+        {
+            // Greyscaled RGB values
+            int redValue, greenValue, blueValue, roundedGreyscaledValue;
+            double greyscaledValue;
+
+            // Create a new empty bitmap with the same dimensions as the source bitmap
+            Bitmap bitMapResult = new Bitmap(bitMapSource.Width, bitMapSource.Height);
+
+            // For how tall the original picture is
+            for (int i = 0; i < row; i++)
+            {
+                // For how wide the original picture is
+                for (int j = 0; j < column; j++)
+                {
+                    Color coordinatePixelValue = bitMapSource.GetPixel(i, j);
+
+                    // Get the original RGB value
+                    redValue = coordinatePixelValue.R;
+                    greenValue = coordinatePixelValue.G;
+                    blueValue = coordinatePixelValue.B;
+
+                    // Calculate greyscale value based on Luma method
+                    greyscaledValue = 0.2126 * redValue + 0.7152 * greenValue + 0.0722 * blueValue;
+
+                    // Convert the double value to integer value
+                    roundedGreyscaledValue = Convert.ToInt16(greyscaledValue);
+
+                    // Set the pixel of Coordinate (i, j) of the resulting picture to the inverted RGB value 
+                    bitMapResult.SetPixel(i, j, Color.FromArgb(roundedGreyscaledValue, roundedGreyscaledValue, roundedGreyscaledValue));
+                }
+            }
+
+            return bitMapResult;
+        }
     }
 }

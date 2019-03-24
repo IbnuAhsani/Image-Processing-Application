@@ -87,8 +87,8 @@ namespace Image_Processing_Application
         private void bitMapSetup()
         {
             // Get the width and height of the original picture
-            row = this.bitMapOriginal.Width;
-            column = this.bitMapOriginal.Height;
+            this.row = this.bitMapOriginal.Width;
+            this.column = this.bitMapOriginal.Height;
 
             // Create a new Bitmap with the size of the original picture
             this.bitMapResult = new Bitmap(row, column);
@@ -169,9 +169,6 @@ namespace Image_Processing_Application
          */
         private void greyscaleLumaButton_Click(object sender, EventArgs e)
         {
-            // Greyscaled RGB values
-            int redValue, greenValue, blueValue, roundedGreyscaledValue;
-            double greyscaledValue;
 
             // Setup the original and result Bitmap
             bitMapSetup();
@@ -179,29 +176,8 @@ namespace Image_Processing_Application
             // Display the loading animation for the cursor
             Cursor = Cursors.WaitCursor;
 
-            // For how tall the original picture is
-            for (int i = 0; i < row; i++)
-            {
-                // For how wide the original picture is
-                for (int j = 0; j < column; j++)
-                {
-                    Color coordinatePixelValue = this.bitMapOriginal.GetPixel(i, j);
-
-                    // Get the original RGB value
-                    redValue = coordinatePixelValue.R;
-                    greenValue = coordinatePixelValue.G;
-                    blueValue = coordinatePixelValue.B;
-
-                    // Calculate greyscale value based on Luma method
-                    greyscaledValue = 0.2126 * redValue + 0.7152 * greenValue + 0.0722 * blueValue;
-
-                    // Convert the double value to integer value
-                    roundedGreyscaledValue = Convert.ToInt16(greyscaledValue);
-
-                    // Set the pixel of Coordinate (i, j) of the resulting picture to the inverted RGB value 
-                    this.bitMapResult.SetPixel(i, j, Color.FromArgb(roundedGreyscaledValue, roundedGreyscaledValue, roundedGreyscaledValue));
-                }
-            }
+            // Calculate for the greyscaled picture by Luma equation
+            this.bitMapResult = buttonFunctions.greyscaleLuma(row, column, bitMapOriginal);
 
             // Display the resulting 
             resultPictureBox.Image = this.bitMapResult;
